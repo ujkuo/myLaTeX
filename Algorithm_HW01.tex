@@ -1,0 +1,292 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+\usepackage{amsmath} % to use split function
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+\usepackage{forest}
+\usepackage{graphicx}
+\usepackage{tikz-qtree}
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize Algorithms: Homework 1}% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Yu-Chieh Kuo} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize \thepage} 
+
+\begin{document}
+\thispagestyle{plain} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+{\large \bf The Design and Analysis of Algorithms} \\
+Ho-Lin Chen, National Taiwan University, Fall 2020  \\
+\hline % \hline produces horizontal lines.
+\\
+\end{tabular} % Our tabular environment ends here.
+
+\vspace*{0.3cm} % Now we want to add some vertical space in between the line and our title.
+
+\begin{center} % Everything within the center environment is centered.
+	{\Large \bf Homework 1} % <---- Don't forget to put in the right number
+	\vspace{2mm}
+	
+        % YOUR NAMES GO HERE
+	{\bf Yu-Chieh Kuo B07611039} % <---- Fill in your names here!
+		
+\end{center}  
+\vspace{0.4cm}
+
+\textbf{Collaborators statement:} I have a study group with the following memebers:\textbf{b06201057 Yu-Chi Hsieh, r08323002 Ze-Wei Chen, b06202004 Han-Wen Chang.} We discuss the problems together but we always do the problem by ourselves first. So, if I specify I have collaborators, then I means I discuss with these group members. \\
+This homework answers the problem set sequentially. 
+
+\begin{enumerate}
+
+%problem 1
+\item {
+\begin{enumerate}
+    \item { \textbf{Collaborators: None.} \\
+Let $c=0.1$, $n_0=\frac{5}{2}$, $cn^2 \leq 0.5n^2-n \ \forall n \geq n_0$ holds. Thus, we prove that $0.5n^2 - n \in \Omega (n^2)$.
+    }
+    \item{ \textbf{Collaborators: Study Group Members.}\\
+If $f(n) \in \Omega (n^3)$, then $ \exists \ c, n_0>0 \ s.t. \ cn^3 \leq f(n) \ \forall n \geq n_0 $. Let $c', n_0' > 0$, $f(n) \geq cn^3 \geq cn_0'\cdot n^2 \geq c'n^2, \ \forall n \geq n_0'$ holds. Thus, we can say that $\exists \ c', n_0'>0, \ s.t. \ f(n) \geq cn^2, \ \forall n \geq n_0' \ i.e. \ f(n) \in \omega (n^2)$.
+    }
+\end{enumerate}
+}
+
+%problem 2
+\item{ \textbf{Collaborators: None.}
+\[
+f_1=(2n)!, \ f_2 = n^n, \ f_3 = n!, \ f_4 = 2^{2n}, \ f_5 = (\log _2 n)!,\]
+\[f_6 = n^3+5n^2, \ f_7 = 8^{\log _2 n}, \ f_8 = \sqrt{n}+3, \ f_9 = n^{0.01}, \ f_{10} = \log _2 n, \ f_{11} = \ln n
+\]
+$f_6,f_7$ and $f_{10},f_{11}$ are pairs such that $f(n) \in \Theta (g(n))$.
+}
+
+%problem 3
+\item {
+By the Master Theorem, we can specify parameters in these two recurrences.
+\begin{enumerate}
+    \item{ \textbf{Collaborators: None.} \\
+Let $a=9, \ b=3, \ f(n)=n^3,\ n^{log_ba}=n^2$. Since $f(n)=n^3 \in \Omega (n^2 \cdot n^\epsilon ), \ \epsilon > 0$, which belongs to the third case in the Master Theorem. As a result, we can say that $T(n) \in \Theta (n^3)$.
+    }
+    \item{ \textbf{Collaborators: None.} \\
+Let $a=9, \ b=3, \ f(n)=n^2 + 20n \log n + 3,\ n^{log_ba}=n^2$, and $f(n) = n^2+20n\log n +3$.  
+Given $c_1 = 1, \ c_2 = 10, \ n_0 = 1$, $c_1n^2 \leq f(n) \leq c_2n^2$ when $n>n_0$, therefore we have $f(n) \in \Theta (n^2\cdot (\log n)^0)$, which belongs to the second case in the Master Theorem. As a result, we can say that $T(n) \in \Theta (f(n)\log n) = \Theta (n^2\log n) $.
+    }
+\end{enumerate}
+}
+
+%problem 4
+\item{
+\begin{enumerate}
+\item { \textbf{Collaborators: Study Group Members.} \\
+Let $f_i(n) = i\cdot n \ i.e. \ f_1(n) = n, \ f_2(n) = 2n, \cdots , f_n(n) = n^2$, then $g(k) = \sum _{j=1}^kf_j(j) = 1^2 + 2^2 + \cdots + n^2 = \frac{n(n+1)(2n+1)}{6} \ i.e. \ g(n) \in n^3$, which implies the statement is false. Therefore, we can disprove the statement.
+}
+
+%p4-2
+\item { \textbf{Collaborators: Study Group Members.} \\
+We already know that $\exists \ c,n_0>0 \ s.t. \ f(n)\leq cn \ \forall \ n\geq n_0$. Let $n_0' =  n_0 + \sum_{j=1}^{n_0-1}f(j)-cj$, when $n\geq n_0'$,
+\[
+\begin{split}
+g(n) & = \sum _{j=1}^{n_0-1}f(j) + \sum _{j=n_0}^{n_0'}f(j) + \sum _{j=n_0'+1}^{n}f(j) \\ 
+& \leq  \sum _{j=1}^{n_0-1}cj +  \sum _{j=1}^{n_0-1}(f(j) - cj) + \sum _{j=n_0}^{n_0'}cj + \sum _{j=n_0'+1}^{n}cj \\ 
+& \leq \sum _{j=1}^{n_0-1}cj +  \sum _{j=n_0}^{n_0'}cj + \sum _{j=n_0}^{n_0'}cj + \sum _{j=n_0'+1}^{n}cj \\ 
+& \leq \sum_{j=1}^n 2cj \\
+& \leq 2c\frac{n(n+1)}{2}
+\end{split}
+\]
+which means $g(n) \in O(n^2)$. Therefore, we can prove the statement.
+
+}
+\end{enumerate}
+}
+
+%problem 5
+\item{
+\begin{enumerate}
+\item { \textbf{Collaborators: Study Group Members.} \\
+First, to prove that $T(n) \in O(2^n)$, we have $T(3) = 6 \leq c\cdot 2^3$ and $T(4) = 7 \leq c\cdot 2^4$. To prove $T(n) \geq c\cdot 2^n \ \forall \ n > 4$, we have
+\[
+\begin{split}
+T(n) & = T(n-2) + 2T(\lfloor \frac{n}{2} \rfloor) + n \\
+& \leq c\cdot 2^{n-2} + 2c\cdot 2^{n-2} + 2^{n-2} \\
+& \text{(Since $n-2 \geq \lfloor \frac{n}{2} \rfloor$ and $2^{n-2} \geq n$ holds when $n>4$)} \\
+& = 4c\cdot 2^{n-2} \\
+& = c\cdot 2^n
+\end{split}
+\]
+
+Therefore, we know that there exists $c,n_0 > 0 \ s.t \ T(n) \leq c\cdot 2^n \ \forall \ n>n_0$, then we prove that $T(n) \in O(2^n)$. \\
+
+Second, to prove that $T(n) \in \Omega (n^2)$, we have $T(1) = 1 \geq c\cdot 1^2$ when $c\leq 1$. By induction, supposing there exists $c,n_0>0 \ s.t. \ T(n) \geq c\codt n^2$, we have
+\[
+\begin{split}
+T(n) & = T(n-2) + 2T(\lfloor \frac{n}{2} \rfloor) + n \\
+& \geq c(n-2)^2 + 2\cdot 0 + n \\
+& = cn^2-4cn+4c+n \\
+& \geq cn^2
+\end{split}
+\]
+Thus, we prove that there exists $c,n_0>0 \ s.t. \ T(n) \geq c\codt n^2 \ i.e. \ T(n) \in \Omega (n^2)$.
+}
+
+% P5-2
+\item { \textbf{Collaborators: None.} \\
+\[
+\begin{split}
+T(n) & = 3T(\frac{n}{3}) + \frac{n}{2\log _3n} \\
+& = 3 [3T\frac{n}{9} + \frac{\frac{n}{3}}{2\log _3 \frac{n}{3}}] + \frac{n}{2 \log _3n} \\
+& = 3^2T(\frac{n}{9}) +\frac{n}{2(\log _3n-1)} +\frac{n}{2\log _3n} \\
+& \vdots \\
+& = 3^{\log _3n}T(\frac{n}{3^{\log _3n}}) + \frac{n}{2[\log _3n - (\log_3 n -1)]} + \cdots + +\frac{n}{2(\log _3n-1)} +\frac{n}{2\log _3n} \\
+& = n \cdot 1 + \frac{n}{2}(\frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \cdots + \frac{1}{\log _3n-1} + \frac{1}{\log _3n}) \\
+& \approx n + \frac{n}{2}(\ln \log _3n + 0.5772156649) \ \text{(by the definition of Harmonic number)} \\
+& \leq n + n \ln \log n
+\end{split}
+\]
+Therefore, we can say that $T(n) \in \Theta (n)$
+}
+\end{enumerate}
+}
+
+%problem 6
+\item{
+\begin{enumerate}
+
+%P6-1
+\item { \textbf{Collaborators: None.} \\
+By repeated substitution, we have
+\[
+\begin{split}
+T(n) & = 2T(\frac{n}{2})+f(n) = 2[2T(\frac{n}{4})+f(\frac{n}{2})] + f(n) \\
+& = 2^2T(\frac{n}{2^2}) + 2f(\frac{n}{2}) + f(n) \\
+& \vdots \\
+& = 2^{\log _2n}T(\frac{n}{2^{\log _2n}}) + 2^{\log _2n - 1} f(\frac{n}{2^{\log _2n -1}}) + \cdots + 2f(\frac{n}{2}) + f(n) \\
+& = nT(1) + \frac{n}{2}f(2) + \cdots + 2f(\frac{n}{2}) + f(n)
+\end{split}
+\]
+Since $f(n) \in \Theta (n^2) \ i.e. \ \exists \ c_1, c_2, n_0>0 \ s.t. \ c_1n^2 \leq f(n) \leq c_2n^2, \ \forall n \geq n_0 $ and $T(1) \in \Theta (1)$, therefore, we can easily find another coefficient $c_1', c_2', n_0' > 0 \ s.t. \ c_1'n^2\leq nT(1) + \frac{n}{2}f(2) + \cdots + 2f(\frac{n}{2}) + f(n) \leq c_2'n^2, \ \forall n \geq n_0'$. As a result, we prove that $T(n) \in \Theta (n^2) \ i.e. \ T(n) \in \Theta(f(n))$.
+}
+
+%P6-2
+\item{ \textbf{Collaborators: Study Group Members.} \\
+Let $f(n) = 2^n$ and $T(n) = 2T(\frac{n}{2}) + f(n)$, we have
+\[
+\begin{split}
+T(2^k) & = 2T(2^{k-1}) + 2^{2^k} \\
+& = 2^kT(1) + \sum _ {i=0}^k 2^i\cdot 2^{2^k-i} \\
+& = 2^kT(1) + 2^{2^k}\frac{k+1}{2} \\
+& \notin O(2^{2^k})
+\end{split}
+\]
+Therefore, we can disprove that $T(n) \in O(f(n))$ for all $n=2^k$ when $f(n) \in \Omega (n^2)$.
+}
+\end{enumerate}
+}
+
+%problem 7
+\item{
+\begin{enumerate}
+   
+%P7-1
+\item{ \textbf{Collaborators: None.}
+We have already known that $T(n) = T(a) + T(b) + 2n$, where $\frac{1}{4}n \leq a,b \leq \frac{3}{4}n, \ a+b=n $. Let $a=rn,b=(1-r)n$, where $\frac{1}{4} \leq r \leq \frac{1}{2}$. We can regard this recursive algorithm as a recursive tree, and if $r \neq 0.5$, this recursive will not be balanced at both sides $i.e.$ it will have a lower bound and a upper bound. The recursive tree may be as below.
+\begin{forest}
+desc/.style={
+    tikz+={
+      \node [anchor=mid west, red] at (.mid -| desc coord) {#1};
+    }
+},
+tikz+={
+    \coordinate (desc coord) at (current bounding box.east);
+  },
+for tree={}
+    [ $n$ % root
+        [ $T((1-r)n)$ % layer1-left
+            [,edge=dotted
+                [$T((1-r)^{\log _rn-1}n)$,edge=dotted,l=2cm
+                    [$T((1-r)^{\log _rn}n)$]
+                    [$T((1-r)^{\log _rn-1}rn)$]
+                ]
+            ]
+            [,edge=dotted]
+            
+        ]
+        [$T(rn)$,desc={$2n$} %layer2-right
+            [,edge=dotted]
+            [,edge=dotted,desc={$2n$}
+                [$T(r^{\log _rn}n)$, l=2cm,edge=dotted,desc={$2n$}
+                    [$T(4)$,desc={$2n$}]
+                    [$T(4)$]
+                ]
+            ]
+        ]
+    ]
+\end{forest} \\
+Note that the nodes at left side are still dividable. We deal with the lower bound at first. The height of the lower-bound layer $i.e.$ the number of layers from root to the lower-bound leafs is $-\log _rn$, and the time complexity of each layer is $n$. Thus, we can say that $T(n) \in \Omega \ (2^{-\log _rn} + 2n\log _rn) \in \Omega \ (n\log n)$ (since $\sqrt{n} \leq 2^{-\log _rn} \leq n$). As for the upper bound, $T(n) \in O \ (2^{-\log _{1-r}n} + 2n\log _{1-r} n) \in O \ (n\log n)$. Therefore, we obtain that $T(n) \in \Theta (n\log n)$.
+}
+%P7-2
+\item{ \textbf{Collaborators: Study Group Members.} \\
+Since in this problem, the splitting and merging procedures requires $n^2$ steps, the time complexity can be presented as $T(n) = T((rn)^2) + T(((1-r)n)^2) + n^2$, where $\frac{1}{4} \leq r \leq \frac{1}{2}$. We can divide this problem into a recursive tree as below.
+\begin{forest}
+desc/.style={
+    tikz+={
+      \node [anchor=mid west, red] at (.mid -| desc coord) {#1};
+    }
+},
+tikz+={
+    \coordinate (desc coord) at (current bounding box.east);
+  },
+for tree={}
+    [ $n$ % root
+        [ $T((1-r)n^2)$ % layer1-left
+            [,edge=dotted
+                [$T((1-r)^{\log _rn-1}n^2)$,edge=dotted,l=2cm
+                    [$T((1-r)^{\log _rn}n^2)$]
+                    [$T((1-r)^{\log _rn-1}rn^2)$]
+                ]
+            ]
+            [,edge=dotted]
+            
+        ]
+        [$T(rn^2)$,desc={$ \leq n^2$} %layer2-right
+            [,edge=dotted]
+            [,edge=dotted,desc={$\leq n^2$}
+                [$T(r^{\log _rn}n^2)$, l=2cm,edge=dotted,desc={$\leq n^2$}
+                    [$T(4)$,desc={$\leq n^2$}]
+                    [$T(4)$]
+                ]
+            ]
+        ]
+    ]
+\end{forest} \\
+Where all procedure in $L$-th layer requires $(r^2+(1-r)^2)^Ln^2$ steps, which is less than $n^2$. Let $r^2+(1-r)^2 = \theta$, for the lower bound, $T(n) \in \Omega \ (2^{-\log _rn} + n^2(1+\cdots + \theta ^{\log _r n-1})) \in \Omega \ (n^2)$, and the upper bound $T(n) \in O \ (2^{-\log _{1-r}n} + n^2(1+\cdots + \theta ^{\log _{1-r} n-1})) \in O \ (n^2)$ (since $\theta$ is a coefficient less than 1).
+Therefore, we can say that the asymptotic running time of this problem is $T(n) \in \Theta (n^2)$.
+
+% Regarding to the previous question, we can give this algorithm a lower bound and a upper bound. In this case for the required steps $n^2$ of splitting and merging procedures, with the previous parameters $a=rn,b=(1-r)n$, where $\frac{1}{4} \leq r \leq \frac{1}{2}$, we can easily say that $T(n) \in \Omega \ (2^{-\log _rn} + 2n^2\log _rn) \in \Omega \ (n\log n)$ and $T(n) \in O \ (2^{-\log _{1-r}n} + 2n\log n) \in O \ (n^2\log n)$. Therefore, we obtain that $T(n) \in \Theta (n^2\log n)$.
+}
+\end{enumerate}
+}
+
+\end{enumerate}
+
+\end{document}

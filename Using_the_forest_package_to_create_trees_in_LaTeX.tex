@@ -1,0 +1,49 @@
+%\title{Using the forest package to create trees in LaTeX}
+% From http://tex.stackexchange.com/a/108728/23931 
+\documentclass[10pt,twoside,a4paper]{memoir}
+\usepackage{graphicx}
+\usepackage{forest}
+\usepackage{tikz-qtree}
+\begin{document}
+
+\begin{tikzpicture}
+\tikzset{edge from parent/.style={draw,edge from parent path={(\tikzparentnode.south)-- +(0,-8pt)-| (\tikzchildnode)}}}
+\Tree [.ZZ
+[.Bax
+[.X
+[.Y [.A ] [.B ] ]
+[.Z [.C ] [.D ] ] ]
+[.F
+[.M [.E ] [.F ] ]
+[.G [.G ] [.H ] ] ] ]
+[.A
+[.B
+[.S  [.I P R T V U ] [.J ] ]
+[.I  [.K ] [.L ] ] ]
+[.M
+[.L  [.M ] [.N ] ]
+[.A  [.O ] [.P ] ] ] ] ] ]
+\end{tikzpicture}
+
+
+\begin{forest} for tree={
+    edge path={\noexpand\path[\forestoption{edge}] (\forestOve{\forestove{@parent}}{name}.parent anchor) -- +(0,-12pt)-| (\forestove{name}.child anchor)\forestoption{edge label};}
+}
+[ZZ
+[Bax
+[X
+[Y [A ] [B ] ]
+[Z [C ] [D ] ] ]
+[F
+[M [E ] [F ] ]
+[G [G ] [H ] ] ] ]
+[A
+[B
+[S  [I [P][R][T][V][U]] [J ] ]
+[I  [K ] [L ] ] ]
+[M
+[L  [M ] [.N ] ]
+[A  [O ] [P ] ] ] ] ] ]
+\end{forest}
+
+\end{document}
