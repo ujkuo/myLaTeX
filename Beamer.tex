@@ -1,0 +1,246 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PassOptionsToPackage{subsection=false}{beamerouterthememiniframes} % delete subsection line
+\documentclass{beamer}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{url}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{booktabs}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{pifont}
+\usepackage{framed}
+\usepackage{xcolor}
+%\usepackage{CJKutf8}
+\usepackage{textcomp}
+\usepackage{xeCJK}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% beamer theme setting
+\usetheme{Szeged}
+\usecolortheme{rose}
+\usefonttheme{serif}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% unable the control buttons at bottom
+\setbeamertemplate{navigation symbols}{}
+
+% define my color
+\definecolor{myred}{RGB}{192,46,46}
+\definecolor{myblue}{RGB}{7,75,164}
+
+% modify footer
+\newcommand{\shortauthor}{\textcolor{myblue}{郭宇杰, Yu-Chieh Kuo}}
+\setbeamertemplate{footline}
+{%
+  \begin{beamercolorbox}[colsep=1.5pt]
+      {upper separation line foot}
+  \end{beamercolorbox}
+  \hbox{%
+      \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex, 
+          dp=2.3ex, leftskip=.3cm plus1fill, rightskip=.3cm]
+          {title in head/foot}%
+          \usebeamerfont{title in head/foot}
+          \parbox{.28\paperwidth}{\raggedright\inserttitle}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex, 
+        dp=2ex, center]{title in head/foot}%
+      \usebeamerfont{author in head/foot}
+      \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex,
+        dp=2ex, leftskip=.3cm, rightskip=.3cm plus1fil]
+        {title in head/foot}%
+        \usebeamerfont{title in head/foot}
+        \parbox{.28\paperwidth}{\raggedleft\shortauthor}
+    \end{beamercolorbox}}
+  \begin{beamercolorbox}[colsep=1.5pt]
+      {lower separation line foot}
+  \end{beamercolorbox}
+}
+
+% modify section and subsection's entry
+\setbeamertemplate{section in toc}{
+  {\color{myblue}\inserttocsectionnumber.}~\inserttocsection}
+\setbeamertemplate{subsection in toc}{
+\hspace{1.2em}{\color{myblue}$\triangleright$}~\inserttocsubsection\par}
+
+% modify itemize's entry and position
+\setlist[itemize]{label=\textcolor{myblue}{$\triangleright$}}
+\setlength{\leftmargini}{0pt}
+
+% modify color
+\setbeamercolor{block title}{use=structure, fg=white, bg=myblue!90!white}
+\setbeamercolor{block body}{use=structure, fg=black, bg=myblue!20!white}
+\setbeamercolor{block title alerted}{use=structure, fg=white, bg=myred!90!white}
+\setbeamercolor{block body alerted}{use=structure, fg=black, bg=myred!20!white}
+\setbeamercolor{frametitle}{fg=myblue}
+\setbeamercolor{separation line}{bg=myblue}
+\setbeamercolor{section in head/foot}{fg=myblue}
+\setbeamercolor{subsectiopn in head/foot}{fg=myblue}
+\setbeamercolor{section in toc}{fg=myblue}
+\setbeamercolor{subsection in toc}{fg=myblue}
+\setbeamercolor*{title}{fg=myblue}
+
+% modify font
+\setCJKmainfont{思源宋體 TW}
+\setmainfont{思源宋體 TW}
+\setbeamerfont{title}{size=\huge, series=\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcolumntype{R}{>{\displaystyle}r}
+\newcolumntype{C}{>{\displaystyle}c}
+\newcolumntype{L}{>{\displaystyle}l}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title page information
+
+\title{
+    How to get offer from Stanford?
+}  
+\author{郭宇杰\inst{1}, Yu-Chihe Kuo\inst{2}} 
+\date{\today} 
+
+\institute[NTU]
+{
+    \inst{1}
+    Department of Information Management,
+    National Taiwan University
+    \inst{2}
+    Department of Electronic Engineering,
+    National Taiwan University
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginSection[]
+{
+    \begin{frame}
+      \frametitle{Table of Contents}
+      \tableofcontents[currentsection]
+    \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%\begin{CJK*}{UTF8}{bsmi}
+
+\begin{frame}
+\titlepage
+\end{frame} 
+
+\AtBeginSection{
+	\begin{frame}{}%[allowframebreaks]{Sumário}
+    	\tableofcontents[currentsection]
+    	%\tableofcontents[currentsection, hideothersubsections]
+	\end{frame}
+	}
+
+\begin{frame}
+    \frametitle{Introduction}
+    This page is used to introduce the topic of report before
+    agenda.
+\end{frame}
+
+\begin{frame}
+    \frametitle{目錄}
+    \tableofcontents
+\end{frame} 
+
+\section{模型介紹} 
+\begin{frame}
+\frametitle{title} 
+Each frame should have a title.
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+    \item itt1
+    \item itt2 
+    \item itt3
+    \item  quedf
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Equilibrium}
+    We fount that
+    \[
+        \Pi_R^N=\biggl(1-\frac{T+C_{f}-C_{n}}{3}\biggr)^2\,
+        ,\text{ and  }
+        \Pi_O^N=\biggl(\frac{T+C_{f}-C_{n}}{3}\biggr)^2\,.
+    \]
+\end{frame}
+
+\section{Section no. 2} 
+\begin{frame}
+\frametitle{unnumbered lists}
+\begin{itemize}
+\item Introduction to  \LaTeX{}  
+\item Course 2 
+\item Termpapers and presentations with \LaTeX{}  
+\item Beamer class
+\end{itemize} 
+\end{frame}
+
+\begin{frame}
+    \frametitle{qqq}
+    HIHIHIHIHIHI
+\end{frame}
+
+
+
+
+\section{Section no.3} 
+\subsection{Tables}
+\begin{frame}
+\frametitle{Tables}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Date} & \textbf{Instructor} & \textbf{Title} \\
+\hline
+WS 04/05 & Sascha Frank & First steps with  \LaTeX  \\
+\hline
+SS 05 & Sascha Frank & \LaTeX \ Course serial \\
+\hline
+\end{tabular}
+\end{frame}
+
+
+    \begin{frame}
+\frametitle{Tables with pause}
+\begin{tabular}{c c c}
+A & B & C \\ 
+\pause 
+1 & 2 & 3 \\  
+\pause 
+A & B & C \\ 
+\end{tabular} 
+    \end{frame}
+
+
+\section{Section no. 4}
+\subsection{blocs}
+\begin{frame}
+\frametitle{blocs}
+
+\begin{block}{title of the bloc}
+Block is this
+\end{block}
+
+\begin{exampleblock}{title of the bloc}
+bloc text
+\end{exampleblock}
+
+
+\begin{alertblock}{title of the bloc}
+bloc text
+\end{alertblock}
+\end{frame}
+
+
+%\end{CJK*}
+\end{document}
