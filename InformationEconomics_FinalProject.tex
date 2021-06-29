@@ -1,0 +1,625 @@
+\documentclass[a4paper]{article}
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{authblk}
+\usepackage[numbered]{bookmark}
+\usepackage[capitalize]{cleveref}
+\usepackage{array}
+\usepackage{cite}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{definition}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Paired Delimiters {}, (), []
+\providecommand\given{} % so it exists
+\newcommand\SetSymbol[1][]{
+   \nonscript\,#1\vert \allowbreak \nonscript\,\mathopen{}}
+\DeclarePairedDelimiterX\Set[1]{\lbrace}{\rbrace}%
+ { \renewcommand\given{\SetSymbol[\delimsize]} #1 }
+\DeclarePairedDelimiterX{\Bkt}[1]{[}{]}{#1}
+\DeclarePairedDelimiterX{\Paren}[1]{(}{)}{#1}
+\DeclarePairedDelimiterX{\Abs}[1]{\lvert}{\rvert}{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcolumntype{R}{>{\displaystyle}r}
+\newcolumntype{C}{>{\displaystyle}c}
+\newcolumntype{L}{>{\displaystyle}l}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\on}{\mathrm{on}}
+\newcommand{\off}{\mathrm{off}}
+\newcommand{\BOPS}{\mathrm{BOPS}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\title{Online-Offline Retailing Cooperation with BOPS Scheme under Price Competition}
+\date{\today}
+\author[1]{Chung-Chia Kuo\thanks{b05703100@ntu.edu.tw}}
+\author[1]{Yu-Chieh Kuo\thanks{b07611039@ntu.edu.tw}}
+\author[2]{Che Cheng\thanks{b07901012@ntu.edu.tw}}
+\affil[ ]{(Team 4)}
+\affil[1]{Department of Information Management, National Taiwan University}
+\affil[2]{Department of Electrical Engineering, National Taiwan University}
+\maketitle
+\begin{abstract}
+    Cooperation between competing agents are commonly seen in the retail industry,
+    and a BOPS (buy online and pick up in-store) channel set up by an online retailer and a brick-and-mortar one is an example.
+    This study formulates the aforementioned relationship using a game-theoretic model,
+    and finds out that cooperation may not always succeed even  if both retailers may benefit from cooperation.
+    In particular,
+    cooperation is only possible if the BOPS channel is more efficient than the original offline channel.
+    This finding holds regardless of the efficiency of online channel,
+    consumers' willingness to pay and the traveling cost as long as all parameters are within the range in consideration.
+\end{abstract}
+
+\section{Introduction}
+The retail industry has gone through huge evolution ever since the popularization of the Internet.
+The rise of online retailing has affected the whole industry in all aspects,
+among them channel selection, pricing and logistics.
+While online retailing becomes of increasing importance,
+brick-and-mortar business still plays a major role in our everyday life.
+
+The relationship between online and offline retailers has been an interesting topic.
+On the one hand,
+different retailers compete in price, product quality, service, etc. for consumers,
+and the Internet has definitely heated the competition.
+On the other hand,
+integration and cooperation between the two channels are seen in various aspects,
+such as online-to-offline (O2O),
+buy online and consume offline,
+buy online and pick up in-store (BOPS), etc.
+It is evident that both channels have non-substitutable strengths,
+and it may be efficient for them to cooperates in certain situations.
+
+In Taiwan,
+online retailers,
+such as Shopee, Momo, PChome, etc.,
+offer an option for consumers to pick their orders up at convenience stores near their house.
+Although providing various options for consumers may allow the online retailers to raise the price,
+and cooperating with online retailers may bring more consumers into their stores,
+the competition between both channels still exists,
+and under what conditions may the cooperation work is an interesting topic.
+
+Motivated by the aforementioned relationship,
+we formulate the interaction with game-theoretic model as follows.
+Consider an online retailer and a brick-and-mortar retailer.
+The two retailers compete in price for an identical product.
+In addition,
+the brick-and-mortar retailer alone serves another product,
+say coffee,
+which the online retailer cannot deliver due to the short lifespan of the product.
+We aims to answer when and how the two retailers may cooperate under the BOPS scheme.
+
+Our major findings are summarized as follows.
+First,
+we find that cooperation has two major effect,
+the efficiency effect and the collusion effect.
+The efficiency effect is related to the relative efficiency between offline channel and BOPS channel,
+and the collusion effect is that when both retailers cooperate,
+they monopolize the market and can thus raise the price accordingly.
+Both effects may increase the cooperating payoff.
+Secondly,
+and most importantly,
+the cooperation may fail even if cooperating is beneficial,
+as the brick-and-mortar retailer may deviate and earns even more given that the online retailer sets a high price due to collusion.
+In particular,
+the cooperation will succeed if the BOPS channel is more efficient than the offline channel.
+
+The remainder of this paper is organized as follows.
+\cref{sec:lit} reviews the literature.
+\cref{sec:model} describes the model.
+In \cref{sec:analysis},
+we derive equilibrium and draw economic and managerial implications.
+Finally,
+\cref{sec:con} concludes the paper.
+In addition,
+all proofs are listed in the \hyperlink{sec:app}{Appendix}.
+
+\section{Literature Review}\label{sec:lit}
+Our study primarily relates to the topics of (1) coopetition between retailers,
+and (2) online-offline relationship,
+especially the adoption of BOPS.
+
+Despite being in competition against each other,
+retailers have been found to develop various cooperation modes under different scenarios.
+In \cite{refer,refer_vert},
+the authors discuss the coopetition between online retailers via in-store referral,
+with retailer having horizontal \cite{refer} and vertical \cite{refer_vert} differences.
+It is shown that the major tradeoff is between the effect of market expansion and price competition,
+and cooperation is possible especially with third-party referral \cite{refer},
+or when the difference in product qualities is large \cite{refer_vert}.
+Also,
+revenue sharing makes it possible for the two competing retailers to raise the price accordingly,
+thus leveraging the competition.
+
+As consumers are getting  more and more accustomed to shopping both online and offline,
+interesting relationship between consumers and the two channels have been developed.
+In \cite{consumer},
+the authors investigate how consumer heterogeneity in purchase cost affects the online-offline competition,
+and thus the equilibrium strategies of both retailers and consumers.
+The authors of \cite{showroom} discuss the competition between two online retailers and an offline showroom with a signaling model.
+The impact of BOPS adoption on a retailer is studied in \cite{BOPS_single},
+where the channels online, offline, and BOPS are studied.
+In \cite{BOPS_coop},
+how online and offline retailers cooperate under the BOPS scheme is studied,
+with revenue sharing, service subsidy, and inventory subsidy as channel coordination instruments.
+In \cite{BOPS_dual},
+the competition between two dual channel retailers is examined.
+The two retailers decides whether or not to offer the BOPS channel,
+and then compete in a Stackelberg game.
+
+Our study complements the literature by discussing the cooperation of competing retailers under the BOPS scheme,
+which is,
+to the best of the authors' knowledge,
+yet to be investigated.
+
+\section{Model}\label{sec:model}
+Consider a brick-and-mortar retailer (retailer R) and an online retailer (retailer O).
+Retailer R sells through offline channel only,
+while retailer O sells through online channel only originally.
+Retailer R alone sells product A,
+and the two retailers compete in price for an identical product B.
+Retailer O now has a chance to offer an cooperation contract to set up a BOPS channel with retailer R together.
+We assume that product A is less valuable and less costly in comparison with product B by assuming the unit cost of product A $C_A=0$ is less than that of product B for all channels,
+and the consumers' willingness to buy for product A is $V_A=1$,
+which is also less than that of product B,
+i.e. $V>1$.
+A detailed list of notations used in this paper is shown in \cref{tab:param}.
+
+\begin{table}[h]
+    \begin{tabularx}{\linewidth}{>{$}c<{$}X}
+            \toprule
+        \off ,\on ,\BOPS & Subscript index of the three channels, $\off$ denotes offline channel, $\on$ denotes online channel, and $\BOPS$ denotes BOPS channel. \\
+        N,C              & Superscript index of the two scenarios, $N$ denotes no cooperation, and $C$ denotes cooperation.                                       \\
+        D                & Superscript index of retailer R deviating in cooperation.                                                                              \\
+        C_{\off}         & Unit cost of product B sold through offline channel for retailer R.                                                                         \\
+        C_{\on}          & Unit cost of product B sold through online channel for retailer O.                                                                          \\
+        C_{\BOPS}        & Unit cost of product B sold through BOPS channel for retailer O in case of cooperation.                                                     \\
+        V                & Utility a consumer derives after getting product B.                                                                                    \\
+        T                & Additional cost a consumer incurs when buying anything through offline or BOPS channel.                                                                \\
+        x                & Type-dependent additional cost a consumer incurs when buying anything through online channel.                                                          \\
+        p_A              & Unit retail price for product A sold through offline channel set by retailer R.                                                             \\
+        p_{\off}         & Unit retail price for product B sold through offline channel set by retailer R.                                                             \\
+        p_{\on}          & Unit retail price for product B sold through online channel set by retailer O.                                                              \\
+        p_{\BOPS}        & Unit retail price for product B sold through BOPS channel set by retailer O in case of cooperation.                                         \\
+        u                & Lump sum payment from retailer O to retailer R in case of cooperation.                                                                 \\
+        v                & Unit fee paid by retailer O to retailer R for each product B sold through BOPS channel in case of cooperation.                              \\
+        D_A              & Demand for product A in offline channel.                                                                                               \\
+        D_{\off}         & Demand for product B in offline channel.                                                                                               \\
+        D_{\on}          & Demand for product B in online channel.                                                                                                \\
+        D_{\BOPS}        & Demand for product B in BOPS channel in case of cooperation.                                                                           \\
+        \Pi_R            & Payoff for retailer R.                                                                                                                 \\
+        \Pi_O            & Payoff for retailer O.                                                                                                                 \\
+        \eta             & Increase in total payoff for both retailers after cooperation.                                                                         \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Summary of Important Notations}
+    \label{tab:param}
+\end{table}
+
+The consumers are heterogeneous in the disutility of product being delivered to their house,
+and they are assumed to distribute in $[0,1]$ uniformly with density 1.
+All consumers either buy 1 unit of both products,
+1 unit of one of the products,
+or nothing at all.
+A consumer endowed with type $x$ (consumer $x$) derives an utility of 1 and $V\geq 1$ upon getting product A and B respectively,
+and incurs a cost $T>0$ if he buys anything through offline or BOPS channel.
+He incurs a mental cost $x$ for buying through the online channel.
+In case that a consumer buys nothing at all,
+his utility is 0.
+
+For retailer R,
+selling one unit of product A at price $p_A$ generates a profit of $p_A$.
+\footnote{We normalize the unit cost of product A to 0.
+In particular,
+we assume product A is both},
+and selling one unit of product B at price $p_{\off}$ generates a profit of $p_{\off}-C_{\off}$.
+For retailer O,
+selling one unit of product B at price $p_{\on}$ generates a profit of $p_{\on}-C_{\on}$,
+and in case of cooperation,
+selling one unit of product B at price $p_{\BOPS}$ using BOPS channel generates a profit of $p_{\BOPS}-C_{\BOPS}-v$%
+\footnote{As there's no information asymmetry in the model,
+    we assume that all cost are taken by retailer O for simplicity,
+    as it only cause a constant shift in the derived $u$ and is thus of little significance.}.
+
+The game proceeds as follows.
+First,
+retailer O offers a contract $(u,v)$ to retailer R,
+and retailer R decides whether to take it or not.
+In case he accepts the contract,
+the two retailers then decide simultaneously $p_{\on},p_{\BOPS}$ and $p_A,p_{\off}$ respectively.
+If he rejects the contract,
+then the two retailers decide simultaneously $p_{\on}$ and $p_A,p_{\off}$.
+Finally,
+each consumer chooses the optimal consumption combination,
+and the revenues are realized.
+
+To focus on the situation of interest,
+we made the following assumptions
+\begin{enumerate}
+    \item $C_{\off},C_{\on},C_{\BOPS}$ are sufficiently small,
+          such that selling through any channel is in principle efficient.
+    \item $1\leq T\leq V$,
+          i.e. consumers will only buy product A if they are buying product B through offline or BOPS channel,
+          and traveling to the store to buy product B may be beneficial for the consumers.
+\end{enumerate}
+The exact conditions needed for the first assumption will be derived in \cref{sec:analysis}.
+Although the second assumption may seem different from real-life experience,
+it captures the main assumption that traveling to the shop is costly.
+
+\section{Analysis}\label{sec:analysis}
+To ease notation,
+we denote the action of consumers as sets,
+e.g. $\Set*{A,B_{\on}}$ denotes the action of buying product A and buying product B through online channel.
+
+\subsection{Equilibrium Analysis}\label{subsec:eq}
+We start our analysis from the benchmark scenario,
+where no cooperation takes place.
+First observe that for each consumer,
+$\Set*{A}$ is dominated by $\varnothing$,
+and $\Set*{A, B_{\on}}$ is dominated by $\Set*{B_{\on}}$.
+Also,
+$\Set*{A,B_{\off}}$ dominates $\Set*{B_{\off}}$ if and only if $p_A\leq 1$,
+which must be the case in equilibrium,
+as selling A is always profitable.
+Next observe that $\Set*{A,B_{\off}}$ dominates $\varnothing$ if and only if $p_A+p_{\off}\leq 1+V-T$,
+which must also be the case in equilibrium,
+since retailer R earns nothing otherwise.
+
+Thus,
+each consumer chooses the better option between $\Set*{A,B_{\off}}$ and $\Set*{B_{\on}}$,
+and the utility of consumer $x$ choosing these two options are $u_{\Set*{A,B_{\off}}}=1+V-T-(p_A+p_{\off})$ and $u_{\Set*{B_{\on}}}=V-x-p_{\on}$ respectively.
+The indifferent consumer is that of type $x^N=-1+T-p_{\on}+(p_A+p_{\off})$,
+and thus the demands are $D_A=D_{\off}=1-x^N=2-T+p_{\on}-(p_A+p_{\off})$ and $D_{\on}=x^N=-1+T-p_{\on}+(p_A+p_{\off})$.
+
+After some simple derivations,
+it can be seen that the equilibrium prices $p_R^N\equiv p_A^N+p_{\off}^N$ and $p_{\on}^N$ and equilibrium profits $\Pi_R^N$ and $\Pi_O^N$ are
+\[
+    p_R^N=1+\frac{-T+2C_{\off}+C_{\on}}{3}\,\text{, } p_{\on}^N=\frac{T+C_{\off}+2C_{\on}}{3}\,,
+\]
+\[
+    \Pi_R^N=\Paren*{1-\frac{T+C_{\off}-C_{\on}}{3}}^2\,,\text{ and }\Pi_O^N=\Paren*{\frac{T+C_{\off}-C_{\on}}{3}}^2\,.
+\]
+Note that $p_A^N$ can be chosen arbitrarily in $[0,1]$,
+and the constraint $p_A^N+p_{\off}^N\leq 1+V-T$ is satisfied whenever $2T\leq 3V-2C_{\off}-C_{\on}$,
+which we assume is true for simplicity.
+We also assume $0\leq T+C_{\off}-C{\on}\leq 3$,
+so that both demands are nonnegative.
+
+It can be seen that in the current scenario,
+the effect of price competition dominates the pricing strategy,
+as the willingness to pay $V$ is of no effect.
+
+In case of cooperation,
+the two retailers set up a BOPS channel together.
+The consumers now have extra options $\Set*{B_{\BOPS}}$ and $\Set*{A,B_{\BOPS}}$.
+Once again,
+we have $\Set*{A,B_{\BOPS}}$ dominates $\Set*{B_{\BOPS}}$.
+Also,
+note that $\Set*{A,B_{\BOPS}}$ dominates $\Set*{A,B_{\off}}$ if and only if $p_{\off}\geq p_{B,BOPS}$,
+and similarly,
+$\Set*{A,B_{\BOPS}}$ dominates $\varnothing$ if and only if $p_A+p_{\BOPS}\leq 1+V-T$,
+which must both be the case in equilibrium,
+since the cooperation would be pointless if not a single unit is sold using the BOPS channel.
+We assume $p_{\off}\geq p_{\BOPS}$ and ignore $p_{\off}$ here for simplicity,
+as it does not affect the equilibrium profits.
+Whether R will deviate and choose $p_{\off}<p_{BOPS}^C$ is later discussed in \cref{subsec:IC}.
+
+Each consumer thus chooses the better option between $\Set*{A,B_{\BOPS}}$ and $\Set*{B_{\on}}$,
+and the utility of consumer $x$ choosing these two options are $u_{\Set*{A,B_{\BOPS}}}=1+V-T-p_A-p_{\BOPS}$ and $u_{\Set*{B_{\on}}}=V-x-p_{\on}$ respectively.
+The indifferent consumer is that of type $x^C=-1+T-(p_{\on}-p_{\BOPS})+p_A$,
+and the demands are $D_A=D_{\BOPS}=1-x^C=2-T-p_A+(p_{\on}-p_{\BOPS})$,
+$D_{\on}=x^C=-1+T+p_A-(p_{\on}-p_{\BOPS})$,
+and $D_{\off}=0$.
+
+After rewriting $(p_{\on}-p_{\BOPS})$ as $p$,
+retailer R now solves
+\[
+    \begin{array}{RL}
+        \max_{p_A}  & (p_A+v)\Paren*{2-T-p_A+p}+u \\
+        \text{s.t.} & p_A+p_{\BOPS}\leq 1+V-T\,.
+    \end{array}
+\]
+and retailer O solves
+\[
+    \begin{array}{RL}
+        \max_{p,p_{\BOPS}} & (p+v+C_{\BOPS}-C_{\on})\Paren*{-p-1+T+p_A}+p_{\BOPS}-C_{\BOPS}-v-u \\
+        \text{s.t.}        & p_A+p_{\BOPS}\leq 1+V-T\,.
+    \end{array}
+\]
+
+Through simple derivations,
+it can be shown that the equilibrium prices $p_A^C$, $p_{\on}^C$, and $p_{\BOPS}^C$ and equilibrium profits $\Pi_R^C$ and $\Pi_O^C$ are
+\[
+    p_A^C=1-v-\frac{T+C_{\BOPS}-C_{\on}}{3}\,\text{, } p_{\on}^C=V-\frac{T+C_{\BOPS}-C_{\on}}{3}\,\text{, } p_{\BOPS}^C=V+v-T+\frac{T+C_{\BOPS}-C_{\on}}{3}\,,
+\]
+\[
+    \Pi_R^C=\Paren*{1-\frac{T+C_{\BOPS}-C_{\on}}{3}}^2+u\,,\text{ and }\Pi_O^C=\Paren*{\frac{T+C_{\BOPS}-C_{\on}}{3}}^2-\frac{2T+2C_{\BOPS}+C_{\on}}{3}+V-u\,.
+\]
+Again,
+we assume $0\leq T+C_{\BOPS}-C_{\on}\leq 3$ such that both demands are nonnegative.
+Also,
+the choice of $v$ must satisfies $-T-C_{\BOPS}+C_{\on}\leq 3v\leq 3-T-C_{\BOPS}+C_{\on}$ so that $0\leq p_A^C\leq 1$.
+
+\begin{proposition}\label{prop:v}
+    The unit fee $v$ has no effect on the equilibrium payoff of both retailers and all consumers when cooperation works.
+\end{proposition}
+
+\cref{prop:v} shows that the choice of $v$ has no effect on the equilibrium utility of all players.
+In particular,
+when $v$ is raised by $\Delta v$,
+then $p_A^C$ is decreased by $\Delta v$ and $p_{\BOPS}^C$ is increased by $\Delta v$,
+and thus the consumers choosing $\Set*{A,B_{\BOPS}}$ still face the total price $V+1-T$.
+This being said,
+we still cannot conclude that $v$ is redundant.
+Its effect is discussed in \cref{subsec:IC}.
+Also,
+we believe that such result occurs mainly because the BOPS channel substitutes the offline channel completely in the current setting,
+and that it may not hold in more general situations,
+e.g. consumers are heterogeneous in traveling cost, etc.
+
+\subsection{Efficiency Analysis}\label{subsec:eff}
+For the cooperation to take place,
+the two retailers together must earn more than before cooperation,
+i.e. $\Pi_R^C+\Pi_O^C\geq \Pi_R^N+\Pi_O^N$.
+To ease notation,
+we define the efficiency $\eta\equiv \Pi_R^C+\Pi_O^C-\Pi_R^N-\Pi_O^N$.
+
+\begin{proposition}\label{prop:eff_C}
+    $\eta\geq 0$ if $C_{\off}\geq C_{\BOPS}$.
+\end{proposition}
+
+\cref{prop:eff_C} shows a sufficient condition for cooperation to be efficient.
+In fact,
+it captures the efficiency improvement of substituting offline channel with online channel,
+which does not harm the consumers.
+The converse is,
+however,
+not true in general,
+and a counterexample can be constructed easily using \cref{prop:eff_V}.
+
+\begin{proposition}\label{prop:eff_V}
+    Given $T,C_{\off},C_{\on},C_{\BOPS}$,
+    there exists some sufficiently large $V$ such that $\eta\geq 0$ holds.
+\end{proposition}
+
+\cref{prop:eff_V} captures the collusion effect of the cooperation.
+In effect,
+when the two channel cooperates,
+retailer O monopolizes the market for product B,
+and can thus raise the price according to the consumers' willingness to pay $V$.
+In contrast,
+in the no-cooperation scenario,
+the price competition makes the equilibrium price independent of $V$ and is set according to $C_{\off}$, $C_{\on}$, and $T$.
+As all consumers are served in both scenarios,
+this improvement only benefits the two retailers,
+and harms the consumers.
+
+\subsection{Incentive Compatibility Analysis}\label{subsec:IC}
+The conditions discussed in \cref{subsec:eff} is not sufficient for cooperation to take place.
+After the contract is signed,
+retailer R may choose to deviate by choosing some $p_{\off}<p_{\BOPS}^C$ and some $p_A$ accordingly.
+Such deviation will happen if and only if deviating earns him more than cooperating.
+By plugging $p_{\on}^C$ into the best response of retailer A in no-cooperation scenario,
+we obtain the optimal deviation price $p_R^D\equiv p_A^D+p_{\off}^D$ and the corresponding payoff $\Pi_R^D$,
+which are
+\[
+    p_R^D=1+\frac{3V-4T+3C_{\off}+C_{\on}-C_{\BOPS}}{6}\,\text{, and }\Pi_R^D=\Paren*{1+\frac{3V-4T-3C_{\off}+C_{\on}-C_{\BOPS}}{6}}^2+u\,.
+\]
+For the deviation to succeed,
+it must be the case that $p_{\off}^D<p_{\BOPS}^C$,
+which is most likely when retailer A chooses $p_A^D=1$.
+
+\begin{proposition}\label{prop:dev_v}
+    $p_{\off}^D<p_{\BOPS}^C$ if and only if $C_{\off}+C_{\on}-C_{\BOPS}<V+2v$.
+\end{proposition}
+
+\cref{prop:dev_v} shows an interesting result.
+Instead of choosing a larger $v$,
+it is better to choose a smallest possible $v$ to prevent retailer R from deviating.
+Recall that $v$ is constrained in \cref{subsec:eq},
+and the lower bound is $v^*=-\tfrac{T+C_{\BOPS}-C_{\on}}{3}$.
+Plugging $v^*$ into \cref{prop:dev_v} gives the following corollary:
+
+\begin{corollary}
+    Deviation may succeed if and only if $3C_{\off}<3V-2T+C_{\BOPS}-C_{\on}$.
+\end{corollary}
+
+We next analyze when retailer R would want to deviate.
+
+\begin{proposition}\label{prop:dev_pi}
+    $\Pi_R^D>\Pi_R^C$ if and only if $3C_{\off}<3V-2T+C_{\BOPS}-C_{\on}$.
+\end{proposition}
+
+\cref{prop:dev_pi} gives a condition for when deviating is beneficial,
+which coincides with that in \cref{prop:dev_v}.
+Thus,
+we obtain the following remark:
+
+\begin{remark}
+    Retailer R would like to deviate if and only if deviation is possible.
+\end{remark}
+
+This also suggests that $v$ is indeed redundant for the model,
+since the optimal $v$ can still only prevent retailer R from deviating when he does not want to deviate.
+
+By applying the assumption that $3V\geq 2T+2C_{\off}+C_{\on}$ on \cref{prop:dev_pi},
+we obtain the following corollary:
+
+\begin{corollary}\label{cor:dev_C}
+    $\Pi_R^D>\Pi_R^C$ if $C_{\BOPS}>C_{\off}$.
+\end{corollary}
+
+This shows that the potential collusion under large $V$ as discussed in \cref{subsec:eff} cannot be realized due to moral hazard,
+as retailer R would implement a smaller $p_R$ and take over the demand.
+We may thus conclude that cooperation will take place if and only if both $3C_{\off}\geq 3V-2T+C_{\BOPS}-C_{\on}$ and $\eta\geq 0$ holds,
+and the former implies $C_{\off}\geq C_{\BOPS}$ (\cref{cor:dev_C}) and thus implies the latter (\cref{prop:eff_C}).
+Therefore,
+we obtain the following result:
+
+\begin{corollary}\label{cor:coop}
+    Cooperation takes place if and only if $C_{\off}\geq C_{\BOPS}$.
+\end{corollary}
+
+The result shows that the attempt of collusion would fail if the BOPS channel is less efficient than the offline channel.
+On the other hand,
+if the BOPS channel is more efficient,
+then the two retailers may cooperate without worrying anyone would deviate,
+and benefit from both both the efficiency effect and the collusion effect brought by cooperation.
+
+In reality,
+whether retailer R drops out from the offline channel or not nay seem contractible,
+and thus the potential deviation in this model may be resolved.
+However,
+we believe that the moral hazard problem would always be present in such coopetition,
+and it may in general be impossible to verify every detail in more complex situations.
+Thus,
+although not precisely,
+the simplified model does capture the nature of the real-world situation.
+
+\section{Conclusions}\label{sec:con}
+This paper formulates an analytic model to study the cooperation between competing online and brick-and-mortar retailers to implement a BOPS channel.
+By discussing the efficiency and incentive compatibility issues,
+we derive the conditions for successful cooperation.
+Our study shows that cooperation may benefit the two retailers in two ways.
+First,
+if the BOPS channel is more efficient than the offline channel,
+then cooperation may increase the total profit by reducing the unit cost.
+Secondly,
+through cooperation,
+the two retailers may collude and alleviate the effect of price competition.
+However,
+our result also indicates that collusion fails when the offline channel is more efficient than the BOPS channel.
+Such failure occurs because the brick-and-mortar retailer would want to deviate and lower its price.
+
+As with any research,
+this study also has several limitations.
+First,
+the model oversimplifies the scenario,
+thus producing a few unconvincing results,
+such as the perfect substitution between offline and BOPS channel.
+This may potentially be improved by adding more heterogeneity into the consumer,
+such as those discussed in \cite{consumer}.
+Secondly,
+the model considers only two retailers,
+thus cooperation leads directly to collusion.
+Finally,
+we focus only on pure-strategy equilibria throughout the paper.
+We believe that cooperation may be possible even if the BOPS channel is less efficient if mixed-strategy is considered for pricing.
+
+\section*{\hypertarget{sec:app}{Appendix}}
+\addcontentsline{toc}{section}{Appendix}
+\begin{proof}[Proof of \cref{prop:v}]
+    For consumers choosing $\Set*{B_{\on}}$,
+    $\frac{\partial p_{\on}^C}{\partial v}=0$,
+    so he is not affected by $v$.
+    For consumers choosing $\Set*{A,B_{\BOPS}}$,
+    $\frac{\partial (p_A^C+p_{\BOPS}^C)}{\partial v}=0$,
+    so he is not affected,
+    and no consumer will deviate to different options.
+
+    For retailer R and retailer O,
+    $\frac{\partial \Pi_R^C}{\partial v}=\frac{\partial \Pi_O^C}{\partial v}=0$,
+    so they are not affected either.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:eff_C}]
+    Given that $C_{\off}\geq C_{\BOPS}$,
+    we have
+    \[
+        \begin{array}{RCL}
+            \eta & = & \Paren*{1-\frac{T+C_{\BOPS}-C_{\on}}{3}}^2-\Paren*{1-\frac{T+C_{\off}-C_{\on}}{3}}^2 \\[3mm]
+                 &   & +\Paren*{\frac{T+C_{\BOPS}-C_{\on}}{3}}^2-\Paren*{\frac{T+C_{\off}-C_{\on}}{3}}^2    \\[3mm]
+                 &   & -\frac{2T+2C_{\BOPS}+C_{\on}}{3} +V                                                  \\[3mm]
+                 & = & \frac{1}{9}\biggl((C_{\off}-C_{\BOPS})(6-4T-2C_{\BOPS}-2C_{\off}+4C_{\on})           \\[3mm]
+                 &   & \;+9V-6T-6C_{\BOPS}-3C_{\on}\biggr)\,.
+        \end{array}
+    \]
+    Using the assumption that $C_{\on}-C_{\off}\geq T-3$ and $C_{\on}-C_{\BOPS}\geq T-3$ from \cref{subsec:eq},
+    we have
+    \[
+        \begin{array}{RCL}
+            \eta & \geq & \frac{1}{9}\biggl((C_{\off}-C_{\BOPS})(6-4T+4T-12)+9V-6T-6C_{\BOPS}-3C_{\on}\biggr) \\[3mm]
+                 & =    & \frac{1}{9}(-6C_{\off}+9V-6T-3C_{\on})\,.
+        \end{array}
+    \]
+    Using the assumption that $3V\geq 2T+2C_{\off}+C_{\on}$ from \cref{subsec:eq},
+    we have
+    \[
+        \begin{array}{RCL}
+            \eta & \geq & \frac{1}{9}(-6C_{\off}+9V-6T-3C_{\on})                    \\[3mm]
+                 & \geq & \frac{1}{9}(-6C_{\off}+6T+6C_{\off}+3C_{\on}-6T-3C_{\on}) \\[3mm]
+                 & =    & 0\,.
+        \end{array}
+    \]
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:eff_V}]
+    Note that $\frac{\partial \eta}{\partial V}=1$,
+    and $V$ is not bounded above by any assumption,
+    thus $\eta$ can be arbitrarily large given a large $V$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:dev_v}]
+    Observe that
+    \[
+        \begin{array}{RRCL}
+                 & p_{\off}^D                                  & < & p_{\BOPS}^C                         \\[3mm]
+            \iff & \frac{3V-4T+3C_{\off}+C_{\on}-C_{\BOPS}}{6} & < & V+v-T+\frac{T+C_{\BOPS}-C_{\on}}{3} \\[3mm]
+            \iff & 3V-4T+3C_{\off}+C_{\on}-C_{\BOPS}           & < & 6V+6v-6T+2T+2C_{\BOPS}-2C_{\on}     \\[3mm]
+            \iff & C_{\off}+C_{\on}-C_{\BOPS}                  & < & V+2v\,.
+        \end{array}
+    \]
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:dev_pi}]
+    Observe that
+    \[
+        \begin{array}{RCL}
+            \Pi_R^D-\Pi_R^C & = & \Paren*{1+\frac{3V-4T-3C_{\off}+C_{\on}-C_{\BOPS}}{6}}^2-\Paren*{1-\frac{T+C_{\BOPS}-C_{\on}}{3}}^2         \\[3mm]
+                            & = & \Paren*{1+\frac{3V-4T-3C_{\off}+C_{\on}-C_{\BOPS}}{6}+1-\frac{T+C_{\BOPS}-C_{\on}}{3}}\cdot                 \\[3mm]
+                            &   & \Paren*{\Paren*{1+\frac{3V-4T-3C_{\off}+C_{\on}-C_{\BOPS}}{6}}-\Paren*{1-\frac{T+C_{\BOPS}-C_{\on}}{3}}}    \\[3mm]
+                            & = & \Paren*{2+\frac{V-2T+C_{\on}-C_{\BOPS}-C_{\off}}{2}}\Paren*{\frac{3V-2T+C_{\BOPS}-C_{\on}-3C_{\off}}{6}}\,.
+        \end{array}
+    \]
+    We shall first focus on the first term.
+    Note that using the assumptions $C_{\on}-C_{\off}\geq T-3$, $C_{\on}-C_{\BOPS}\geq T-3$ and $3V\geq 2T+2C_{\off}+C_{\on}$ from \cref{subsec:eq},
+    we have
+    \[
+        \begin{array}{RCL}
+            2+\frac{V-2T+C_{\on}-C_{\BOPS}-C_{\off}}{2} & \geq & 2+\frac{V-2T+T-3-C_{\off}}{2}                 \\[3mm]
+                                                        & =    & \frac{3+3V-3T-3C_{\off}}{6}                   \\[3mm]
+                                                        & \geq & \frac{3+2T+2C_{\off}+C_{\on}-3T-3C_{\off}}{6} \\[3mm]
+                                                        & =    & \frac{3-T+C_{\on}-C_{\off}}{6}                \\[3mm]
+                                                        & \geq & \frac{3-T+T-3}{6}                             \\[3mm]
+                                                        & =    & 0\,.
+        \end{array}
+    \]
+    Therefore,
+    $\Pi_R^D-\Pi_R^C$ is nonnegative if and only if the second term is nonnegative,
+    i.e. $3C_{\off}<3V-2T+C_{\BOPS}-C_{\on}$.
+\end{proof}
+
+
+\bibliographystyle{unsrt}
+\bibliography{ref}
+\addcontentsline{toc}{section}{References}
+
+\end{document}
