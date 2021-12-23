@@ -8,3 +8,6 @@
 *.log
 *.ps
 *.brf
+*.nav
+*.toc
+*.snm
