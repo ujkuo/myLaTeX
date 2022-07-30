@@ -4,7 +4,7 @@
 \usepackage{tikz}
 \usepackage{array}
 \usepackage{url}
-\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{amsmath, amsthm, amsfonts, amssymb, bm}
 \usepackage{booktabs}
 \usepackage{enumerate}
 \usepackage[shortlabels]{enumitem}
@@ -24,6 +24,10 @@
     linkcolor=myblue,
     urlcolor=myred 
 }
+
+
+\usepackage[mathscr]{eucal}
+\usepackage{tcolorbox}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % beamer theme setting
@@ -45,9 +49,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Modify footer
 \newcommand{\shortauthor}{\textcolor{myblue}{Yu-Chieh Kuo}}
+\setbeamerfont{title in head/foot}{family=\chancery}
 \setbeamertemplate{footline}
 {%
-  \begin{beamercolorbox}[colsep=1.5pt]
+  \begin{beamercolorbox}[colsep=1pt]
       {upper separation line foot}
   \end{beamercolorbox}
   \hbox{%
@@ -68,15 +73,31 @@
         \usebeamerfont{title in head/foot}
         \parbox{.28\paperwidth}{\raggedleft\shortauthor}
     \end{beamercolorbox}}
-  \begin{beamercolorbox}[colsep=1.5pt]
+  \begin{beamercolorbox}[colsep=1pt]
       {lower separation line foot}
   \end{beamercolorbox}
+}
+
+\setbeamertemplate{headline}
+{
+    \begin{beamercolorbox}[colsep=1pt]
+        {upper separation line head}
+    \end{beamercolorbox}
+    \hbox{
+        \begin{beamercolorbox}[ignorebg,ht=2.25ex,dp=3.75ex]{section in head/foot}
+                \insertnavigation{\paperwidth}
+            \end{beamercolorbox}%:w
+
+    }
+    \begin{beamercolorbox}[colsep=1pt]
+        {lower separation line head}
+    \end{beamercolorbox}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Modify theorem and block
 \usepackage{parskip}
-%\usepackage{microtype}
+\usepackage{microtype}
 \newlength{\prevparskip}
 
 \defbeamertemplate{block begin}{lines}{%
@@ -112,7 +133,7 @@
 % Numbering from 1 for each environments
 \setbeamertemplate{theorems}[numbered] 
 \newtheorem{coro}{Corollary}
-\newtheorem{lemma}{Lemma}
+%\newtheorem{lemma}{Lemma}
 \newtheorem{propo}{Proposition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,6 +184,7 @@
 \setbeamerfont{title}{size=\huge, series=\bfseries}
 \newfontfamily\chancery{Apple Chancery}
 \DeclareTextFontCommand{\textch}{\chancery}
+\setbeamerfont{block title}{family=\chancery}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -174,7 +196,7 @@
 % Title page
 
 \title{
-    How to get offer from Stanford?
+    Who's Who in the Network.\\ Wanted: Key Player
 }  
 \author{郭宇杰\inst{1}, Yu-Chieh Kuo\inst{2}} 
 \date{\today} 
@@ -183,7 +205,7 @@
 {
     \inst{1}
     Department of Information Management,
-    National Taiwan University
+    National Taiwan University \\
     \inst{2}
     Department of Electronic Engineering,
     National Taiwan University
@@ -219,9 +241,15 @@
 \begin{frame}[label=current]
     \frametitle{Motivation}
     \framesubtitle{}
-    This page is used to introduce the motivation before outline.
     \begin{itemize}
-        \item
+        \item As a decision-maker or policymaker, we may want to find the most
+           influential player in the network to break or strengthen such effect.
+        \item As a decision-maker or policymaker, we may want to find the most
+           influential player in the network to break or strengthen such effect.
+        \item As a decision-maker or policymaker, we may want to find the most
+           influential player in the network to break or strengthen such effect.
+        \item As a decision-maker or policymaker, we may want to find the most
+           influential player in the network to break or strengthen such effect.
     \end{itemize}
 \end{frame}
 
@@ -240,10 +268,49 @@
 
 \section{Model Settings} 
 \begin{frame}[label=current]
+    \frametitle{Nash-Bonacich Equilibrium}
+    \framesubtitle{}
+    \begin{theorem}
+        Let $\mu_1(\bm{G})$ be the largest eigenvalue of $\bm{G}$,
+        %\footnote{$\mu_1(\bm{G})$ is well-define and larger than $0$ since all eigenvalues
+        %of a symmetric matrix $\bm{G}$ are real, and the diagnal of $\bm{G}$ is zero.}
+        the matrix $\beta[\bm{I}-\lambda^*\bm{G}]$ is well-defined and nonnegative
+        if and only if $\beta>\lambda\mu_1(\bm{G})$, thus the unique interior Nash equilibrium
+        is given by $\bm{x}^*(\bm{\Sigma})=\frac{\alpha}{\beta+\gamma b(\mathscr{G},\lambda^*)}
+        b(\mathscr{G},\lambda^*)$.
+    \end{theorem}
+    \begin{itemize}
+                   \setlength\itemsep{-0.5em}
+        \item Given the unique Nash equilibrium 
+            $\bm{x}^*(\bm{\Sigma})=\frac{\alpha}{\beta+\gamma b(\mathscr{G},\lambda^*)}
+            b(\mathscr{G},\lambda^*)$, we want to analyze how three different effects influence
+           the equilibrium.
+           \begin{itemize}
+                   \setlength\itemsep{-0.5em}
+               \item There exists no equilibrium if the matrix of cross-effects $\bm{\Sigma}$ 
+                   reduces to $\lambda\bm{G}$.
+               \item There is a unique equilirium if $\bm{\Sigma}$ reduces to $-\beta\bm{I}-\gamma\bm{U}$.
+           \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
     \frametitle{Model}
     \framesubtitle{}
+    \begin{propo}
+        Let $\mu_1(\bm{G})$ be the largest eigenvalue of $\bm{G}$,
+        \footnote{$\mu_1(\bm{G})$ is well-define and larger than $0$ since all eigenvalues
+        of a symmetric matrix $\bm{G}$ are real, and the diagnal of $\bm{G}$ is zero.}
+        the matrix $\beta[\bm{I}-\lambda^*\bm{G}]$ is well-defined and nonnegative
+        if and only if $\beta>\lambda\mu_1(\bm{G})$, thus the unique interior Nash equilibrium
+        is given by $\bm{x}^*(\bm{\Sigma})=\frac{\alpha}{\beta+\gamma b(\mathscr{G},\lambda^*)}
+        b(\mathscr{G},\lambda^*)$.
+    \end{propo}
     \begin{itemize}
-        \item The model is 
+        \item As a decision-maker or policymaker, we may want to find the most
+        influential player in the network to break or strengthen such effect.
+        \item As a decision-maker or policymaker, we may want to find the most
+           influential player in the network to break or strengthen such effect.
     \end{itemize}
 \end{frame}
 \subsection{Second line of dots} % new line of headline dots
