@@ -1,0 +1,586 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PassOptionsToPackage{subsection=false}{beamerouterthememiniframes} % delete subsection line
+\documentclass{beamer}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{url}
+\usepackage{amsmath, amsthm, amsfonts, amssymb, bm}
+\usepackage{booktabs}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+%\usepackage{pifont}
+\usepackage{framed}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage{dsfont}
+\usepackage{subcaption}
+\usepackage{xeCJK}
+\usepackage[natural, svgnames]{xcolor}
+\usepackage{natbib}
+\bibliographystyle{econ}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=myblue,
+    linkcolor=myblue,
+    urlcolor=myred
+}
+
+\usepackage[mathscr]{eucal}
+\usepackage{tcolorbox}
+%\everymath{\displaystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% beamer theme setting
+\usetheme{Szeged}
+\usecolortheme{rose}
+\usefonttheme{serif}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% unable the control buttons at bottom
+\setbeamertemplate{navigation symbols}{}
+
+% define my color
+\definecolor{myred}{RGB}{192,46,46}
+\definecolor{myblue}{RGB}{7,75,164}
+\definecolor{mygreen}{rgb}{0.11,0.7,0.02}
+
+% modify footer
+\newcommand{\shortauthor}{\textcolor{myblue}{Yu-Chieh Kuo}}
+\setbeamertemplate{footline}
+{%
+  \begin{beamercolorbox}[colsep=1.5pt]
+      {upper separation line foot}
+  \end{beamercolorbox}
+  \hbox{%
+      \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex, 
+          dp=2.3ex, leftskip=.3cm plus1fill, rightskip=.3cm]
+          {title in head/foot}%
+          \usebeamerfont{title in head/foot}
+          \parbox{.28\paperwidth}{\raggedright\inserttitle}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex, 
+        dp=2ex, center]{title in head/foot}%
+      \usebeamerfont{author in head/foot}
+      \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex,
+        dp=2ex, leftskip=.3cm, rightskip=.3cm plus1fil]
+        {title in head/foot}%
+        \usebeamerfont{title in head/foot}
+        \parbox{.28\paperwidth}{\raggedleft\shortauthor}
+    \end{beamercolorbox}}
+  \begin{beamercolorbox}[colsep=1.5pt]
+      {lower separation line foot}
+  \end{beamercolorbox}
+}
+%% modify theorem and block
+%\usepackage{parskip}
+%%\usepackage{microtype}
+%\newlength{\prevparskip}
+%
+%\defbeamertemplate{block begin}{lines}{%
+%    %\par\vskip2ex plus 1fil%
+%    \setlength{\prevparskip}{\parskip}%
+%    \setlength{\parskip}{0pt}%
+%    \begin{beamercolorbox}{block title}%
+%        \usebeamerfont{block title}%
+%        \vskip-0.6ex%
+%        \insertblocktitle%
+%        \vskip-2ex%
+%        {\color{myblue}\rule{\textwidth}{1pt}}%
+%    \end{beamercolorbox}%
+%    \nointerlineskip%
+%    \begin{beamercolorbox}[vmode]{block body}%
+%        \vskip-1ex%
+%        \usebeamerfont{block body}%
+%        \vskip 1.2ex%
+%}
+%
+%\defbeamertemplate{block end}{lines}{%
+%    \end{beamercolorbox}%
+%    \vskip-1ex%
+%    \rule{\textwidth}{1pt}%
+%    \setlength{\parskip}{\prevparskip}%
+%    \vskip-1ex plus 1fil
+%}
+%
+%\setbeamertemplate{blocks}[lines]
+
+
+
+% modify section and subsection's entry
+\setbeamertemplate{section in toc}{
+  {\color{myblue}\inserttocsectionnumber.}~\inserttocsection}
+\setbeamertemplate{subsection in toc}{
+\hspace{1.2em}{\color{myblue}$\triangleright$}~\inserttocsubsection\par}
+
+% modify itemize's entry and position
+\setlist[itemize]{label=\textcolor{myblue}{$\triangleright$}}
+\setlength{\leftmargini}{0pt}
+
+% modify color
+\setbeamercolor{block title}{fg=myblue, bg=white}
+\setbeamercolor{block body}{fg=black, bg=white}
+%\setbeamercolor{block title alerted}{use=structure, fg=white, bg=myred!90!white}
+%\setbeamercolor{block body alerted}{use=structure, fg=black, bg=myred!20!white}
+\setbeamercolor{frametitle}{fg=myblue}
+\setbeamercolor{separation line}{bg=myblue}
+\setbeamercolor{section in head/foot}{fg=myblue}
+\setbeamercolor{subsectiopn in head/foot}{fg=myblue}
+\setbeamercolor{section in toc}{fg=myblue}
+\setbeamercolor{subsection in toc}{fg=myblue}
+\setbeamercolor*{title}{fg=myblue}
+\setlist[description]{format=\textcolor{myblue}}
+
+% Modify margin setting
+\justifying
+\setbeamersize{text margin left=1.8em,text margin right=1.8em}
+\setlength{\parindent}{2em}
+
+\addtobeamertemplate{frametitle}{\setlength{\parindent}{0em}}{}
+\addtobeamertemplate{block begin}{\setlength{\parindent}{0em}}{\setlength{\parindent}{2em}}
+\addtobeamertemplate{block example begin}{\setlength{\parindent}{0em}}{\setlength{\parindent}{2em}}
+\settowidth{\leftmargini}{\usebeamertemplate{itemize item}}
+%\addtolength{\leftmargini}{\labelsep}
+
+% modify font
+\setCJKmainfont{思源宋體 TW}
+\setmainfont{Philosopher}
+%\setmainfont{Apple Chancery}
+%\setmainfont{Lato}
+\setbeamerfont{title}{size=\huge, series=\bfseries}
+\newfontfamily\chancery{Apple Chancery}
+\DeclareTextFontCommand{\textch}{\chancery}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcolumntype{R}{>{\displaystyle}r}
+\newcolumntype{C}{>{\displaystyle}c}
+\newcolumntype{L}{>{\displaystyle}l}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title page information
+
+\title{
+    Who's Who in Networks. WANTED: The Key Player
+}  
+\author{Yu-Chihe Kuo\inst{1}} 
+\date{\today} 
+
+\institute[NTU]
+{
+    \inst{1}
+    Department of Information Management,
+    National Taiwan University
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginSection[]
+{
+    \begin{frame}[noframenumbering]
+      \frametitle{}
+      \tableofcontents[currentsection, hideallsubsections]
+    \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bcm}{\text{Bonacich centrality measure }}
+\newcommand{\hl}[1]{\textcolor{myblue}{#1}}
+\newcommand{\lb}[1]{\underline{#1}}
+\newcommand{\sij}{\sigma_{ij}}
+\newcommand{\gij}{g_{ij}}
+\newcommand{\lbs}{\lb{\sigma}}
+\newcommand{\ubs}{\bar{\sigma}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\eu}[1]{\mathscr{#1}}
+\newcommand{\ds}[1]{\mathds{#1}}
+\newcommand{\eug}{\mathscr{G}}
+\newcommand{\Ne}{\text{Nash equilibrium }}
+\newcommand{\thm}{\textch{Theorem }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\includeonlyframes{current}
+\begin{document}
+
+\begin{frame}%[label=current]
+\titlepage
+\end{frame} 
+
+\begin{frame}%[label=current]
+    \frametitle{Motivation}
+    \framesubtitle{}
+    \begin{itemize}
+        \item A network consists of several individuals linking to each other or not, and there
+            may be some groups in a network.
+        \item The dependence of individual outcomes on group behavior is often referred to as
+            \hl{peer effects}.
+            \begin{itemize}
+                \item In standard peer effects models, this dependence is 
+                    homogeneous across memebrs and corresponds to an \hl{average} group influence.
+                \item As a decision-maker or policymaker, we may want to find the most
+                    influential player in the network to break or strengthen such effect.
+            \end{itemize}
+        \item \hl{What if this intergroup externality is heterogeneous cross group members and 
+            varies accross individuals with their level of group exposure?}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Literature Reviews}
+    \framesubtitle{}
+    \begin{itemize}
+        \item The first related measure was proposed by \citet{bonacich}, and some 
+            sociologists establish the network analysis \citet{social} as well.
+        \item However, the \bcm fails to internalize all the network payoff externalities
+            agents exert on each other, whereas the intercentrality measure internalizes them all. 
+        \item This research extended the \bcm and propose a new centrality measure
+            \hl{based on the planner's optimality (collective) perspectives} instead of strategic
+            (individual) considerations.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents[hideallsubsections]
+\end{frame} 
+
+\section{Model Setting} 
+\begin{frame}%[label=current]
+    \frametitle{Utility and the Game}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Each player $i=1,\cdots,n$ selects an effort $x_i\geq0$ and obtains the bilinear
+            utility $u_i(x_1,\cdots,x_n)=\alpha_ix_i+\frac{1}{2}\sigma_{ii}x_i^2+
+            \sum_{j\neq i}\sigma_{ij}x_ix_j$, which is strictly concave in own effort, and the
+            utility is linear-quadratic.
+        \item Bilateral influences are captured by the cross-derivatives 
+            $\frac{\partial^2 {u_i}}{\partial {x_i}\partial {x_j}}=\sigma_{ij}$ and can be of either
+            sign. 
+            \begin{itemize}
+                \item For example, if $\sigma_{ij}>0$, an increase in $j$'s efforts triggers
+                    a upwards shift \hl{in $i$'s response}, and we say $i$ and $j$'s efforts
+                    are \hl{strategic complements from $i$'s perspective}.
+            \end{itemize}
+        \item Simplifying, we set $\alpha_i=\alpha>0$, $\sigma_{ii}=\sigma$, and 
+            denote by $\bm{\Sigma}\equiv[\sigma_{ij}]$ the square matrix of cross-effects.
+        \item Moreover, we define $\lbs\equiv\min\{\sigma_{ij}|i\neq j\}$ and 
+            $\ubs\equiv\max\{\sigma_{ij}|i\neq j\}$ and assume that
+            $\sigma<\min\{\lbs,0\}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Cross-effects}
+    \framesubtitle{}
+    \begin{itemize}
+        \item The next step is to discuss how to capture the relative complementarity in efforts
+            between $(i,j)$.
+            \begin{itemize}
+                \item There are some discussion based on the sign of $\lbs$, and we skip it and use the
+                    result directly.
+            \end{itemize}
+        \item Define $\gamma\equiv-\min\{\lbs,0\}\geq0$ and $\lambda\equiv\ubs+\gamma\geq0$.
+            \footnote{In fact, $\lambda=0$ has Lebesgue measure zero.} and let
+            $\gij\equiv\frac{\sij+\gamma}{\lambda}$ for $i\neq j$ and $g_{ii}=0$.
+            \footnote{The result is robust in the case $g_{ii}=1$. This case is less
+            economic intuitive said by the author.} Therefore,
+            \hl{$0\leq \gij\leq1$ is a parameter measuring the relationship in efforts within $(i,j)$
+            from $i$'s perspective, and the matrix $\bm{G}=[\gij]$ interprets the adjacency
+            matrix of the network.}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Bilateral Influences}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Let $\sigma=-\beta-\gamma$ for $\beta>0$ 
+            satisfying the assumption of $\sigma<\min\{\lbs,0\}$ WLOG, and
+            denote by $\bm{I}$ the identity matrix and $\bm{U}$ the matrix of ones, 
+            where both are $n\times n$ matrices, we can decompose the matrix $\bm{\Sigma}$ as
+            \hl{$\bm{\Sigma}=-\beta\bm{I}-\gamma\bm{U}+\lambda\bm{G}$}.
+            \begin{itemize}
+                \item Therefore, bilateral influences result from
+                    the combination of \hl{an individual effect by $-\beta\bm{I}$,
+                    the global interaction effect by $-\gamma\bm{U}$, and the local
+                    interaction effect by $\lambda\bm{G}$}.
+            \end{itemize}
+        \item We can rewrite the utility function following the decomposition of $\bm{\Sigma}$ as
+            $u_i(x_1,\cdots,x_n)=\alpha x_i-\frac{1}{2}(\beta-\gamma)x_i^2
+            -\gamma\sum_{j=1}^nx_ix_j+\lambda\sum_{j=1}^n\gij x_ix_j$ for all $i=1,\cdots,n$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{The \bcm}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Before moving to the equilibrium analysis, we define a network centrality measure
+            extended by \bcm for the further use.
+        \item Remind that the matrix $\bm{G}^k$ tracks the indirect connections in the network: 
+            $\gij^k$ measures the number of paths of length $k\geq1$ in the network $\mathscr{G}$ from
+            $i$ to $j$.
+        \item Given a sufficiently small scalar $a\geq0$, we define the matrix
+            $\bm{M}(\eu{G},a)=[\bm{I}-a\bm{G}]^{-1}=\sum_{k=0}^{+\infty}a^k\bm{G}^k$.
+            $a$ represents a decay factor to scale down the weight of long paths.
+        \item The vector of Bonacich centrality in $\eu{G}$ is
+            $b(\eu{G},a)=[\bm{I}-a\bm{G}]^{-1}\cdot\ds{1}$, and the Bonacich centrality of node $i$
+            is $b_i(\eu{G},a)=\sum_{j=1}^nm_{ij}(\eu{G},a)$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{The \bcm}
+    \framesubtitle{}
+    \begin{itemize}
+        \item We can separate the Bonacich centrality into two parts: from $i$ to $i$ itself
+            and of all the outer path from $i$ to every other $j\neq i$. That is,
+            $b_i(\eu{G},a)=\sum_{j=1}^nm_{ij}(\eu{G},a)=m_{ii}(\eug,a)+\sum_{j\neq i}m_{ij}(\eug,a)$.
+            \begin{itemize}
+                \item $m_{ii}(\eug,a)\geq1$ by definition and thus $b_i(\eug,a)\geq1$.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Equilibrium Analysis}
+\begin{frame}%[label=current]
+    \frametitle{Nash Equilibrium}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Recall that the utility function can be describe as 
+            $u_i(\bm{x})=\alpha_ix_i+\frac{1}{2}\bm{\Sigma x}^2$. A Nash equilibrium in pure strategies 
+            $\bm{x}^*\in\mathbb{R}^n_{+}$ is to solve 
+            $\frac{\partial {u_i}(\bm{x}^*)}{\partial {x_i}}=0$ and $x_i^*>0$,
+            that is, $-\bm{\Sigma}\cdot\bm{x}^*=[\beta\bm{I}+\gamma\bm{U}-\lambda\bm{G}]\cdot\bm{x}^*
+            =\alpha\cdot\ds{1}$.
+        %\vskip-2ex%
+        \item Using the fact that $\bm{U}\cdot\bm{x}^*=x^*\cdot\ds{1}$ and define 
+            $\lambda^*\equiv\frac{\lambda}{\beta}$, the FOC reduces to
+            $\beta[\bm{I}-\lambda^*\bm{G}]\cdot\bm{x}^*=(\alpha-\gamma x^*)\cdot\ds{1}$.
+    \end{itemize}
+%    \begin{theorem}
+%        Let $\mu_1(\bm{G})$ be the largest eigenvalue of $\bm{G}$,
+%            \footnote{$\mu_1(\bm{G})$ is well-define and larger than $0$ since all eigenvalues
+%            of a symmetric matrix $\bm{G}$ are real, and the diagnal of $\bm{G}$ is zero.}
+%            the matrix $\beta[\bm{I}-\lambda^*\bm{G}]$ is well-defined and nonnegative
+%            if and only if $\beta>\lambda\mu_1(\bm{G})$, thus the unique interior Nash equilibrium
+%            is given by $\bm{x}^*(\bm{\Sigma})=\frac{\alpha}{\beta+\gamma b(\eug,\lambda^*)}
+%            b(\eug,\lambda^*)$.
+%    \end{theorem}
+    \begin{description}
+        \item[Theorem 1:] Let $\mu_1(\bm{G})$ be the largest eigenvalue of $\bm{G}$,
+            \footnote{$\mu_1(\bm{G})$ is well-define and larger than $0$ since all eigenvalues
+            of a symmetric matrix $\bm{G}$ are real, and the diagnal of $\bm{G}$ is zero.}
+            the matrix $\beta[\bm{I}-\lambda^*\bm{G}]$ is well-defined and nonnegative
+            if and only if $\beta>\lambda\mu_1(\bm{G})$, thus the unique interior Nash equilibrium
+            is given by $\bm{x}^*(\bm{\Sigma})=\frac{\alpha}{\beta+\gamma b(\eug,\lambda^*)}
+            b(\eug,\lambda^*)$.
+    \end{description}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Parameters Analysis}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Given the unique Nash equilibrium 
+            $\bm{x}^*(\bm{\Sigma})=\frac{\alpha}{\beta+\gamma b(\eug,\lambda^*)}
+            b(\eug,\lambda^*)$, we want to analyze how three different effects influence
+            the equilibrium.
+            \begin{itemize}
+                \item If the matrix of cross-effects $\bm{\Sigma}$ reduces to $\lambda\bm{G}$, that is,
+                    $\beta=\gamma=0$, there exists no Nash equilibrium.
+                \item If $\bm{\Sigma}$ reduces to $-\beta\bm{I}-\gamma\bm{U}$, that is, $\lambda=0$,
+                    the \Ne is unique.
+            \end{itemize}
+        \item The existence and uniqueness of \Ne are proven by \citet{debreu}. We emphasize the 
+            economic meaning.
+            \begin{description}
+                \item[\textcolor{myred}{My explanation:}] 
+                    If the cross-effects will not be affected by your effort and
+                    the substitutability in efforts across all pairs of players
+                    , you may prefer doing nothing and result in an effort $x_i=0$
+                    to obtain a higher utility,
+                    which contradicts the condition of an interior \Ne.
+            \end{description}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Individual's Contribution to the Aggregate Equilibrium}
+    \framesubtitle{}
+    \begin{itemize}
+        \item The Bonacich-Nash equilibrium expression also implies that each individual 
+            contributes to the aggregate equilibrium outcome in proportion to their network centrality:
+            $x_i^*(\bm{\Sigma})=\frac{b_i(\eug,\lambda^*)}{b(\eug,\lambda^*)}x^*(\bm{\Sigma})$.
+        \item This indicates that the intergroup externality \hl{is not an average influence
+            but a weighted one heterogeneous across members.}
+            \begin{description}
+                \item[\textcolor{myred}{My explanation:}] 
+                    An unbalanced influence across memebrs allows us to find the most
+                    significant player.
+            \end{description}
+    \end{itemize}
+\end{frame}
+
+\section{Find the Key Player}
+\begin{frame}%[label=current]
+    \frametitle{Identification Criterion}
+    \framesubtitle{}
+    \begin{itemize}
+        \item After solving the \Ne and related issues, we go back to the main topic:
+            how to find the key player in a network.
+        \item The idea is: we want to reduce the player optimally to \hl{maximize
+            the difference between the value of aggregate Nash equilibrium from this removal.} 
+            Formally, we 
+            solve an optimization problem \hl{$\max\{\bm{x}^*(\bm{\Sigma})-\bm{x}^*(\bm{\Sigma}_{-i})\}$.}
+            \begin{itemize}
+                \item This is equivalent to solve $\min\{\bm{x}^*(\bm{\Sigma}_{-i})|i=1,\cdots,n\}$.
+            \end{itemize}
+        \item Let $i^*$ be a solution to the optimization problem. We call $i^*$ the key player,
+            which means removing $i^*$ from the initial network has the \hl{largest overall impact
+            on the aggregate equilibrium level.}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{New Measure: Intercentrality}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Remind that the \bcm only counts the number of paths stemming from player $i$,
+            which doesn't include \hl{the contributions of player $i$ toward other player $j\neq i$.}
+        \item Therefore, the author proposed the \hl{intercentrality
+            $c_i(\eug,a)=\frac{b_i(\eug,a)^2}{m_{ii}(\eug,a)}$,}
+            to capture such combined centrality.
+                    %\small
+                    \setlength{\arraycolsep}{2.5pt}
+                    %\medmuskip = 1mu
+                    \[
+                        \raggedleft
+                        \begin{array}{LL}
+                            \text{\textcolor{myblue}{$\triangleright$}}\,\,\,\,
+                            c_i(\eug,a)&=\frac{b_i(\eug,a)^2}{m_{ii}(\eug,a)}
+                            =\frac{\left(\sum_{j=1}^nm_{ij}(\eug,a)\right)^2}{m_{ii}(\eug,a)}\\[3mm]
+                            &=\frac{\left(m_{ii}(\eug,a)+\sum_{j\neq i}m_{ij}(\eug,a)\right)^2}
+                            {m_{ii}(\eug,a)}\\[3mm]
+                            &=
+                            b_i(\eug,a)+
+                            \frac{\sum_{j\neq i}m_{ij}(\eug,a)\cdot b_i(\eug,a)}{m_{ii}(\eug,a)}.
+                        \end{array}
+                    \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Intercentrality and the Key Player}
+    \framesubtitle{}
+    \begin{itemize}
+        \item In fact, removing a player from a network has two effects:
+            \begin{itemize}
+                \item Fewer players contribute to the aggregate activity level 
+                    (direct effect).
+                \item The network topology is modified, which forces the remaining players
+                    to adopt different actions (indirect effect).
+            \end{itemize}
+        \item Therefore, we want to catch the key play by using the intercentrality.
+    \end{itemize}
+    \begin{description}
+        \item[Theorem 2:] The key player $i^*$ who solves the optimization problem
+            $\min\{x^*(\bm{\Sigma}_{-i})|i=1,\cdots,n\}$ \hl{has the highest intercentrality}
+            of parameter $\lambda^*$ in $\eug$, that is, 
+            $c_{i^*}(\eug,\lambda^*)\geq c_{-i^*}(\eug,\lambda^*)$.
+    \end{description}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Example}
+    \framesubtitle{}
+    \begin{itemize}
+        \item For example, consider the following network $\eug$. Player 1 bridges together
+            two groups, and removing player 1 disrupts the network.
+        \item However, removing player 2 decreases maximally the total number of network links.
+    \end{itemize}
+    \includegraphics[width=\textwidth]{exp}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Example}
+    \framesubtitle{}
+    \begin{itemize}
+        \item The computational result shows that as the value of $a$ (the decay factor of long paths)
+            is low, player 2 has the highest Bonacich centrality and also is the key player;
+            however, when $a$ is high, player 2 is not the key player but player 1 is.
+        \item By considering indirect effects, removing player 1 has the highest joint direct
+            and indirect effect on \hl{aggregate outcome}.
+    \end{itemize}
+    \centering
+    \includegraphics[width=0.8\textwidth]{table}
+\end{frame}
+
+\section{Discussion}
+\begin{frame}[label=current]
+    \frametitle{Utility Form}
+    \framesubtitle{}
+    \begin{itemize}
+        \item There is a number of possible extension of the work.
+        \item The first is that the analysis is restricted to linear-quadratic utility that
+            capture linear externality in player's actions.
+            \begin{itemize}
+                \item They use FOC to find the interior equilibrium and leads to the Bonacich-Nash
+                    linkage.
+            \end{itemize}
+        \item Linear-quadratic utilities are commonly used in economic models.
+        \item It can be extended to more general cases, such as non-linear externalities.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Planner's Objective}
+    \framesubtitle{}
+    \begin{itemize}
+        \item In this research, the planner's objective function is the aggregate group outcome.
+            Theorems and corollaries are based on it.
+        \item If the planer's objective is to maximize welfare
+            $W^*(\bm{\Sigma})=\sum_{i=1}^nu_i(\bm{x}^*(\bm{\Sigma}))=\frac{\beta+\gamma}{2\sum_{i=1}^n
+            x_i^*(\bm{\Sigma})^2}$, the result of the key player is also possible in this case.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Group Targets}
+    \framesubtitle{}
+    \begin{itemize}
+        \item This research characterizes a single-player target, but the idea of
+            intercentrality measure can be generalized to a group index.
+        \item The group target selection problem is not amenable to a sequential key
+            player problem. In fact, optimal group targets belong to the maximization of
+            submodular set functions, which cannot admit exact solutions.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Staged Games}
+    \framesubtitle{}
+    \begin{itemize}
+        \item This method can be extended to solve a two-stage game.
+            \begin{itemize}
+                \item In the first stage, players decide simultaneously to stay in the network
+                    $\eug$ or to drop out of it, then get their outside options and utilities.
+                \item In the second stage, the staying players play the network game on the 
+                    resulting network.
+                \item A fun fact is that 
+                    the authors themselves had solved the uniqueness of the second-stage
+                    \Ne and the closed-form expression in \citet{author1} and \citet{author2}.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+\end{frame}
+%\end{CJK*}
+\end{document}
+
