@@ -1,0 +1,334 @@
+\documentclass{OR_SolutionTheme}
+
+\title{Operations Research, Spring 2022 (110-2) \\
+Suggestions for Common Issues in Homework}
+
+\begin{document}
+\maketitle
+
+In homework 1, we (TAs) found couple of common issues varying from notations usage
+to formulation logic. Thus, we list these common issues to help you 
+feel more comfortable and obtain higher grades 
+in arriving homework, case assignments, and most importantly, the final exam and the term project.
+
+The content of this suggestion document is fourfold.
+First, we want to show you the benefits and 
+the skills of parametrizing and variable expression
+in \cref{sec:notation}.
+In addition, we list several typical formatting issues 
+in your homework 1 and provide better ways 
+to conquer these issues in \cref{sec:format}.
+Moreover, in \cref{sec:misc} we list two
+miscellaneous but essential matters you may read 
+before starting your homework 2. 
+Last but not least, to incentive you to dive into \LaTeX, 
+we deliver a few selected example topics about \LaTeX \
+in \cref{sec:latex}.
+
+\section{Notation Usage}\label{sec:notation}
+\begin{description}
+    \item[Parameters and variables:]
+    Parametrizing the problem is the initial step to formulate tasks,
+    and properly defining and naming sets, indices, parameters, and variables
+    are helpful for readability for sure.
+    Typically, we use the capital letter to denote the parameters, and
+    use the lower case letter to denote the decision variables.
+    
+    \item[Properly define set:]
+    Parametrizing may also significantly ease your work. For example,
+    in problem 1, tens of students define a few sets and parameters and use the exact
+    number to indicate which player can play as a setter or an opposite. 
+    It's fine if typing all of them correctly and whenever the problem is not complicated.
+    Nonetheless, we see lots of typos happening in the case of using an exact number as an index.
+    Establishing a parameter or a set to demonstrate your idea
+    is more flexible and scalable despite typos,. You may be rescued from plenty of typing by 
+    a well-defined precedent parameter or set, and it's more efficient if you want or 
+    need to extend your formulations.
+    
+    \item[Set expression:]
+    In problem 1, we see some students try to
+    use numbers to represent positions, and they
+    write sentences such as
+    \[
+        \begin{array}{c}
+            \text{Let } J \text{ be the set of position, }
+            J=\Set{1,2,3,4,5}(S,L,H,M,O),    \\
+            \text{Let } i\in I \text{ be the 
+            index of position, where } 
+            I=\Set{1(S),2(L),3(H),4(M),5(O)}.
+        \end{array}
+    \]
+    We may understand what you want to express,
+    but it will confuse your set definition.
+    It's better to explain your idea
+    in additional words or sentences.
+    
+    \item[Define what you exactly need:]
+    We see several students defining redundant
+    or dependent parameters and variables, and
+    never using them or messily using them in the formulation.
+    We don't deduct this issue this time, but
+    you should check what you write before submitting.
+
+\end{description}
+
+\section{Formatting issues}\label{sec:format}
+\begin{description}
+    \item[Incorrect symbol:]
+    Many students use mathematical symbols pretty professional, but still a few have some 
+    problems. For example, the symbol representing less equal is $\leq$, not $<=$. 
+    Several documents, guidance, and introductions on the Internet teach about mathematical writing,
+    and you can search for them easily.\footnote{For example, I (one of the TAs) usually reference
+    \href{https://www.caam.rice.edu/~heinken/latex/symbols.pdf}{this document}.}
+    
+    \item[Operator and verb:]
+    We see several students writing 
+    \[
+        \text{Let } x_{ij} = \text{number of something,}
+    \]
+    or quite similar sentences. 
+    It would help if you did not use a mathematical symbol as a verb.
+    In contrast, you can write
+    \[
+        \begin{array}{C}
+            \text{Let } x_{ij} \text{ be the number of something,} \\
+            \text{Denote the number of something by } x_{ij}, 
+        \end{array}
+    \]
+    or other equivalent sentences.
+    
+    \item[Italics or regular:]
+    This is a common error, and plenty of students lose their grades
+    by this issue.
+    For example, in problem 3, if you want to 
+    represent a shift $i$ belonging to the afternoon type in a parameter, 
+    says $B_{i,\mathrm{afternoon}}$, you need to specify the type afternoon by
+    a regular font, instead of an {\it italics}. The same argument is applicable to
+    the definition of set. You can see how the 
+    instructor writes when defining a set $S=\Set{\mathrm{morning, afternoon, night, leave}}$.
+    
+    In contrast, if you want to type
+    your variables, parameters, or sets in the
+    text, use italics.
+    
+    \item[Punctuation:]
+    When you finish your formulation, please don't forget
+    to type a comma or a period ('.', not '。') in the end.
+    
+\end{description}
+
+\section{Miscellaneous issues}\label{sec:misc}
+\begin{description}
+    \item[Course name:] This course is called {\bf Operation\textcolor{red}{s} Research},
+    instead of Operation Research, Operation Researchs, Operations Researchs, or
+    Operating research.
+    
+    \item[\LaTeX:]
+    We strongly encourage you to type your work in \LaTeX.
+    For those who have a weak preference to install \LaTeX \ locally,
+    you can use \href{https://www.overleaf.com/}{Overleaf}, an
+    online \LaTeX \ editor which is easy to use without installation
+    and environment setting. Overleaf also supports real-time collaboration and version control, and its gallery contains
+    hundreds of \LaTeX \ templates. Using \LaTeX \ can easily 
+    make your work professional in mathematical writing, 
+    and save you a lot of time.
+    
+\end{description}
+\section{\LaTeX \ Tips}\label{sec:latex}
+In this section, we summarize some basic \LaTeX \ syntax
+and tips which may be useful and save your time.
+\begin{description}
+    \item[Frequent syntax:]
+    You can search lots of \LaTeX \ resources and 
+    detailed documents online. 
+    This section only demonstrates some useful skills 
+    you may use in the following assignments.
+    \begin{enumerate}
+        \item We take the solution for problem 2 in homework 1 for example.
+        \[
+            \begin{split}
+                \min \quad & \sum_{k\in K}x_k \\
+                \mbox{s.t.} \quad & \left(\sum_{k\in K}\sum_{m=1}^4\sum_{n=m+1}^5
+                A_{mnk}\right)\sum_{k\in K}x_k \geq D_{ij}
+                \quad \forall i\in I, \ j\in J \\
+                & x_k \geq 0 \quad \forall k\in K.
+            \end{split}
+        \]
+        To format this IP formulation, you may use the following two methods.
+        A tip is that you can auto-adjust the size of 
+        the brackets by adding 
+        \texttt{\textbackslash left} and
+        \texttt{\textbackslash right} 
+        before your left and right brackets,
+        respectively.
+        \begin{minted}{latex}
+        \[
+            \begin{split}
+                \min \quad & \sum_{k\in K}x_k \\
+                \mbox{s.t.} \quad & \left(\sum_{k\in K}\sum_{m=1}^4\sum_{n=m+1}^5
+                A_{mnk}\right)\sum_{k\in K}x_k \geq D_{ij}
+                \quad \forall i\in I, \ j\in J \\
+                & x_k \geq 0 \quad \forall k\in K.
+            \end{split}
+        \]
+        \end{minted}
+        \begin{minted}{latex}
+        \[
+            \begin{array}{RLL}
+                \min & \sum_{k\in K}x_k & \\
+                \mbox{s.t.} & \left(\sum_{k\in K}\sum_{m=1}^4\sum_{n=m+1}^5
+                A_{mnk}\right)\sum_{k\in K}x_k \geq
+                D_{ij} & \forall i\in I, \ j\in J \\
+                & x_k \geq 0 \quad \forall k\in K. &
+            \end{array}
+        \]
+        \end{minted}
+        Note that you have to invoke \texttt{amsmath} 
+        and \texttt{array}
+        packages before writing equations, respectively.
+        You can read the \href{https://www.overleaf.com/learn/latex/Aligning_equations_with_amsmath}{\texttt{amsmath}} and 
+        \href{https://www.overleaf.com/learn/latex/Tables}{\texttt{array}} package
+        details to extend your program.
+        
+        \item To draw a matrix, for example,
+        \[
+            \begin{bmatrix}
+                1 & 2^x & 3y\\
+                \frac{3}{4} & f(q) & c
+            \end{bmatrix},
+        \]
+        you can use the method like
+        \begin{minted}{latex}
+        \[
+            \begin{bmatrix}
+                1 & 2^x & 3y\\
+                \frac{3}{4} & f(q) & c
+            \end{bmatrix}
+        \]
+        \end{minted}
+        and check the \href{https://www.overleaf.com/learn/latex/Matrices}{document} for further use.
+        
+        \item 
+        In homework 2, you need to implement a
+        branch-and-bound algorithm and depict 
+        the full branch-and-bound tree. 
+        You can follow the steps to draw a tree in \LaTeX.
+        Note that this method requires a \texttt{tikz} 
+        package and set 
+        \texttt{\textbackslash newdimen\textbackslash nodeDist}
+        and \texttt{\textbackslash nodeDist=35mm}
+        (or another preferred distance)
+        before
+        begining your document, i.e., before
+        \texttt{\textbackslash begin\{document\}}.
+        Here I draw an example from the previous course slide.
+        \newpage
+        \begin{figure}
+        \centering
+        \begin{tikzpicture}[
+         node/.style={
+          draw,rectangle,
+          },]
+            \node [node,text width=2cm, align=left] (A) {$x^1=\left(\frac{11}{2},0\right)$ \\[2mm] $z_1=\frac{33}{4}$};
+            \path (A) ++(-135:\nodeDist) node [node,text width=2cm, align=left] (B) {$x^2=\left(2,\frac{3}{2}\right)$ \\[2mm] $z_2=\frac{15}{2}$};
+            \path (A) ++(-45:\nodeDist) node [node,text width=2cm, align=center] (C) {Infeasible};
+            \path (B) ++(-135:\nodeDist) node [node,text width=2cm, align=left] (D) {$x^3=\left(2,1\right)$ \\[2mm] $z_3=7$};
+            \path (B) ++(-45:\nodeDist) node [node,text width=2cm, align=left] (E) {$x^4=\left(\frac{7}{4},2\right)$ \\[2mm] $z_4=\frac{29}{4}$};
+            \draw (A) -- (B) node [left,pos=0.5] {$x_1\leq2$}(A);
+            \draw (A) -- (C) node [right,pos=0.5] {$x_1\geq3$}(A);
+            \draw (B) -- (D) node [left,pos=0.5] {$x_2\leq1$}(A);
+            \draw (B) -- (E) node [right,pos=0.5] {$x_2\geq2$}(A);
+    
+        \end{tikzpicture}
+        \caption{An example of a branch-and-bound tree}
+        \end{figure}
+        \begin{minted}{latex}
+        \begin{figure}
+        \centering
+        \begin{tikzpicture}[
+         node/.style={
+          draw,rectangle,
+          },]
+            \node [node,text width=2cm, align=left] (A) {$x^1=\left(\frac{11}{2},0\right)$ \\[2mm] $z_1=\frac{33}{4}$};
+            \path (A) ++(-135:\nodeDist) node [node,text width=2cm, align=left] (B) {$x^2=\left(2,\frac{3}{2}\right)$ \\[2mm] $z_2=\frac{15}{2}$};
+            \path (A) ++(-45:\nodeDist) node [node,text width=2cm, align=center] (C) {Infeasible};
+            \path (B) ++(-135:\nodeDist) node [node,text width=2cm, align=left] (D) {$x^3=\left(2,1\right)$ \\[2mm] $z_3=7$};
+            \path (B) ++(-45:\nodeDist) node [node,text width=2cm, align=left] (E) {$x^4=\left(\frac{7}{4},2\right)$ \\[2mm] $z_4=\frac{29}{4}$};
+            \draw (A) -- (B) node [left,pos=0.5] {$x_1\leq2$}(A);
+            \draw (A) -- (C) node [right,pos=0.5] {$x_1\geq3$}(A);
+            \draw (B) -- (D) node [left,pos=0.5] {$x_2\leq1$}(A);
+            \draw (B) -- (E) node [right,pos=0.5] {$x_2\geq2$}(A);
+        \end{tikzpicture}
+        \caption{An example of a branch-and-bound tree}
+        \end{figure}
+        \end{minted}
+        
+        \item 
+        We have learned the simplex method in the
+        course, and we are available to draw 
+        tableaus of linear programming as well.
+        Here I also take the previous course slide
+        for example.
+        \[
+            \begin{array}{ccc}
+                \begin{array}{cccc|c}
+                     -2 & -3 & 0 & 0 & 0 \\
+                     \hline
+                     1 & 2 & 1 & 0 & x_3=6 \\
+                     \fbox{2} & 1 & 0 & 1 & x_4=8
+                \end{array}
+                & \rightarrow &
+                \begin{array}{cccc|c}
+                     0 & -2 & 0 & 1 & 8 \\
+                     \hline
+                     1 & \fbox{$\frac{3}{2}$} & 1 & -\frac{1}{2} & x_3=2 \\
+                     1 & \frac{1}{2} & 0 & \frac{1}{2} & x_1=4
+                \end{array}
+            \end{array}
+        \]
+        \newpage
+        
+        \begin{minted}{latex}
+        \[
+            \begin{array}{ccc}
+                \begin{array}{cccc|c}
+                     -2 & -3 & 0 & 0 & 0 \\
+                     \hline
+                     1 & 2 & 1 & 0 & x_3=6 \\
+                     \fbox{2} & 1 & 0 & 1 & x_4=8
+                \end{array}
+                & \rightarrow &
+                \begin{array}{cccc|c}
+                     0 & -2 & 0 & 1 & 8 \\
+                     \hline
+                     1 & \fbox{$\frac{3}{2}$} & 1 & -\frac{1}{2} & x_3=2 \\
+                     1 & \frac{1}{2} & 0 & \frac{1}{2} & x_1=4
+                \end{array}
+            \end{array}
+        \]
+        \end{minted}
+    \end{enumerate}
+
+    % \item[Chinese:]
+    % We know some people have a strong preference to answer in Chinese. 
+    % You can invoke several packages to type Chinese words in \LaTeX.
+    % Here I would like to suggest you use
+    % \href{https://ctan.org/pkg/xecjk?lang=en}{\texttt{xeCJK}}. 
+    % The only thing you need to do is to invoke \texttt{xeCJK} package 
+    % (i.e., \texttt{\textbackslash usepackage\{xeCJK\}}), 
+    % and make sure you use \texttt{xeLaTeX} to compile your file. 
+    % For Overleaf users, you can check the menu at the left top 
+    % and change a compiler in settings.
+    % You can specify your font in \texttt{xeCJK} environment
+    % by 
+    % \texttt{\textbackslash setCJKmainfont\{font name\}} 
+    % command,
+    % and I (one of TAs) usually use \texttt{Noto Serif CJK TC}.
+    
+    % 我們知道有些學生對用中文寫作業有著強烈的偏好，
+    % 你可以透過使用\texttt{xeCJK}這個package來完成這件事！
+    
+    
+\end{description}
+
+\end{document}
