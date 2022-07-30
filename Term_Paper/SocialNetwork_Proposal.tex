@@ -1,0 +1,794 @@
+\documentclass[a4paper]{article}
+%The main tex begins from line 262
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2cm, right = 2cm]{geometry} 
+\usepackage{amsmath} % For the usage of \because and \therefore
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{etoolbox}
+\usepackage{indentfirst}
+\usepackage{tabularx}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{authblk}
+\usepackage[calcwidth]{titlesec}
+\usepackage{bookmark}
+\usepackage[capitalize]{cleveref}
+\usepackage{array}
+\usepackage[english]{babel}
+\usepackage{enumitem} % For the usage of labeling in enumerate and itemize
+%\usepackage[utf8]{inputenc}
+%\usepackage{CJKutf8}
+%\usepackage{xeCJK}
+
+\usepackage{xcolor}
+\usepackage{natbib}
+\bibliographystyle{econ}
+\usepackage{hyperref}
+\hypersetup{
+        colorlinks,
+        citecolor=myblue,
+        linkcolor=myblue,
+        urlcolor=myred,
+}
+
+\usepackage[mathscr]{eucal}
+\usepackage{tcolorbox}
+%\usepackage[sc]{mathpazo}
+%\linespread{1.05}
+\usepackage[T1]{fontenc}
+%\usepackage{newpxtext,newpxmath}
+\usepackage{pxfonts}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+% Macros for setting basic info
+\gdef\@uni{National Taiwan University}
+\gdef\@department{Information Management}
+\gdef\@me{Yu-Chieh Kuo}
+
+\newcommand{\course}[2][]{
+    \ifstrempty{#1}{
+        \gdef\shortcourse{#2}
+    }{
+        \gdef\shortcourse{#1}
+    }
+    \gdef\@course{#2}
+}
+\newcommand{\teacher}[1]{\gdef\@teacher{#1}}
+\newcommand{\semester}[1]{\gdef\@semester{#1}}
+\newcommand{\uni}[1]{\gdef\@uni{#1}}
+\newcommand{\department}[1]{\gdef\@department{#1}}
+\newcommand{\assignment}[2][Homework]{
+    \ifstrempty{#2}{
+        \gdef\@assignment{#1}
+    }{
+        \gdef\@assignment{#1 #2}
+    }
+}
+
+% page style for title page
+\fancypagestyle{title}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \cfoot{\footnotesize Page {\thepage} of \pageref*{LastPage}} 
+}
+\newcommand{\ujtitle}{
+    \thispagestyle{title}
+%    \noindent\begin{tabularx}{\linewidth}{Xr} % This is a simple tabular environment to align your text nicely 
+%    {\large \bf{\@course}} \\
+%    \bottomrule % \hline produces horizontal lines.
+%    \end{tabularx}    
+%    \vspace*{0.3cm}
+
+    \begin{center}
+        \let \footnote \thanks
+        {\huge\bf\textsc{\@course}}\\[3mm]
+        {\@author\@thanks}\\[3mm]
+        {\@date}
+    \end{center}
+
+    \vspace*{0.3cm}
+}
+\newcommand{\mymaketitle}{
+    \thispagestyle{title}
+    \vspace*{-15mm}
+    \noindent\begin{tabularx}{\linewidth}{Xr}
+                                & \textsl{National Taiwan University} \\
+        \large\textbf{\@semester,} & \textsl{Department of \@department}         \\
+        \large\textbf{\@course} & \textsl{Prof. \@teacher}\Bstrut\\
+        \bottomrule
+    \end{tabularx}
+
+    \vspace*{10mm}
+
+    \begin{center}
+        {\huge\textsc{\@assignment{}}}\\[6mm]
+        {\@author}
+    \end{center}
+
+    \vspace*{1cm}
+}
+
+% page style for contents
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{13.6pt}
+\lhead{\small {\@course}}
+\rhead{\small {\@me}}
+\cfoot{\small {Page {\thepage} of \pageref*{LastPage}}} 
+
+% Style for part, section, and subsection
+% Part
+% Bookmarks
+\hypersetup{
+    bookmarksnumbered=true
+}
+
+% Reference nome for task and subtask
+\crefname{section}{\sectionname}{\sectionnamepl}
+
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \everymath{\displaystyle} % display all math symbol as DISPLAY MODE
+
+% commands for spacing
+\newcommand{\Tstrut}{\rule{0pt}{4mm}}         % = `top' strut
+\newcommand{\Bstrut}{\rule[-2mm]{0mm}{0mm}}   % = `bottom' strut
+
+% Paired Delimiters {}, (), []
+\providecommand\given{} % so it exists
+\newcommand\SetSymbol[1][]{
+   \nonscript\,#1\vert \allowbreak \nonscript\,\mathopen{}}
+\DeclarePairedDelimiterX\Set[1]{\lbrace}{\rbrace}%
+ { \renewcommand\given{\SetSymbol[\delimsize]} #1 }
+\DeclarePairedDelimiterX{\Bkt}[1]{[}{]}{#1}
+\DeclarePairedDelimiterX{\Paren}[1]{(}{)}{#1}
+\DeclarePairedDelimiterX{\Abs}[1]{\lvert}{\rvert}{#1}
+\newcommand{\PR}[1]{\Pr\Bkt*{#1}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+%\newcolumntype{D}{>{$(}l<{)$}}
+\newcolumntype{R}{>{\displaystyle}r}
+\newcolumntype{C}{>{\displaystyle}c}
+\newcolumntype{L}{>{\displaystyle}l}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Declare operator and useful math command
+\DeclareMathOperator{\EOp}{\mathbb{E}}
+\newcommand{\E}[1]{\ensuremath{\EOp\Bkt*{#1}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\PS}[1]{\mathcal{P}(#1)}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\es}{\emptyset}
+
+\newcommand{\sst}{\subset}
+\newcommand{\sse}{\subseteq}
+\newcommand{\spt}{\supset}
+\newcommand{\spe}{\supseteq}
+
+\newcommand{\ie}{\text{ i.e., }}
+\newcommand{\st}{\text{ s.t.  }}
+%\newcommand{\and}{\text{and}}
+
+% Declare delimiter
+\DeclareMathDelimiter{\lVert}
+  {\mathopen}{symbols}{"6B}{largesymbols}{"0D}
+\DeclareMathDelimiter{\rVert}
+  {\mathclose}{symbols}{"6B}{largesymbols}{"0D}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+%\DeclarePairedDelimiter\vec{\langle}{\rangle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Proposition}
+\crefname{claim}{Proposition}{Proposition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\setCJKmainfont{思源宋體 TW}
+%\setmainfont{思源宋體 TW}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% define my color
+\definecolor{myred}{RGB}{192,46,46}
+\definecolor{myblue}{RGB}{7,75,164}
+\definecolor{mygreen}{rgb}{0.11,0.7,0.02}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use listing package to display different programming language
+% Use xcolor package to display syntax color for programming language
+% Usage: \env{lstlisting}[language=LANGUAGENAME]
+% Common language name: Python, bash, C, C++, R, sh, make, Matlab
+
+\usepackage{listings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%\begin{CJK*}{UTF8}{bsmi}
+\course{Online Learning Behavior, Peer Effect, and Education}
+\title{\huge \bf \textsc{Online Learning Behavior, Peer Effect, and Education}}
+\semester{Spring 2022}
+%\teacher{}
+\department{}
+\date{\today}
+\author{Yu-Chieh Kuo\thanks{Department of Information Management, National Taiwan University.
+\textcolor{black}{\href{mailto:ujkuo@ntu.im}{ujkuo@ntu.im}}}}
+%\affil[$\dagger$]{Department of Information Management, National Taiwan University}
+\maketitle
+
+\begin{abstract}
+    %How does the online behavior affect the learning outcome when students learn in the online education
+    %platform? Can we detect and specify the communities by their online behavior?
+    %This research project aims at answering these questions.
+
+    Sociologists and economists are interested in examining the relationship between
+    the characteristics and peer effects of students and their learning outcomes,
+    which generate thousands of literature among the past half centry.
+    %however, a few attensions are put in the
+    %relationship between the learning behavior and the outcomes.
+    %In the past, no adequate data is available to analysis such relationship. Nevertheless,
+    Additionally, 
+    with the widespread adoption of the online learning platforms, 
+    more and more behavior data is collected
+    by the platform, including the learning behavior such as the clicking, speed-up or replay,
+    and posts on the forum.
+    Although data collection raises in this big data era, 
+    the behavior data doesn't stimulate many research involved,
+    and few attentions are received in the
+    relationship between the learning behavior and the outcomes.
+    What is the impact of different online time distribution and different learning patterns?
+    Does the friend share a similar online learning behavior or students with the 
+    similar online learning behavior are easier to get familiar with?
+
+    In this research project, 
+    we propose a behavior-driven method that provides us to dive into the new era.
+    %which provides us a chance to identify the behavior among students.
+    The contribution of this research is threefold. 
+    First, we present a novel research direction for student's academic outcomes
+    by leveraging the student's online behavior data.
+    We propose several activities as a possible metric to compare the similarity between
+    leaners and cluster learners based on the similarity to confirm 
+    whether and how learner behaviors affect their learning outcome.
+
+    Second, we empirically analyze the actual student behavior in the online
+    education platform to explore the correlation 
+    and the causality for their academic outcome.
+    We examine the collected data from NTU COOL,
+    an online platform providing professors and students 
+    at National Taiwan University to hold courses and learn online.
+    Not only to utilize the online website data, but we also plan to collect the 
+    student's friendship network to represent the network dynamics and
+    study whether the learning behavior is relative
+    to the friendship or whether students tend to have friends 
+    with similar learning behavior.
+
+    Third, we nominate learning suggestions for both learners and instructors. By
+    observing learners' online learning behavior, we can detect possible learning problems
+    and help learners better attend the course timely.
+    Moreover, this research can be extended to the different age groups to 
+    help schools improve their education policies and teaching plans.
+\end{abstract}
+
+\newpage
+
+\section*{Long-term Impact}
+This research project aims to provide a critical theoretical and empirical 
+analysis of online learning behavior, which receives relatively sparse attention
+from the researchers.
+Regarding the academic contribution, first, we pave the way to 
+associate the data era with classical social network research.
+Several types of research are conducted to investigate the study outcomes
+and the network effects on education.
+Nevertheless, due to the difficulty of data collection
+in the past, economists tended to emphasizes the characteristics of learners
+(\citet{eduPeer}; \citet{idenEduPeer}; \citet{eduPeerBook}) and
+no empirical evidence unveiled the mystery behind the learning behaviors.
+As the broad adoption of online technologies in recent years, especially
+the large-scale epidemics accelerates the acceptance of online education,
+millions of learners study different subjects online and leave tons of
+online learning behavior marks.
+The research's contribution is paramount to both economics and 
+educational science, since we leverage the direct behavior data from students
+to track and document the impact of different behaviors.
+Such a multi-disciplined analysis across the economics, educational science, and computer
+science in the framework of network effects is 
+currently inexistent, and our methodology may elucidate a new research direction.
+
+Second, we provide a methodological contribution to the future analysis.
+It is widely believed that longer studying time and different learning habits
+impact academic achievement
+(\citet{time}; \citet{time2}; \citet{time3}). Economists and sociologists agree
+that people do not live isolated, and peer interactions significantly
+influence students (\citet{dynamic}).
+We use the stochastic actor-based model and the spatial autoregressive (SAR) model 
+for social interaction to study the network dynamics and network effects of
+learning behaviors.
+We hope the methodology will encourage researchers to explore how different aspects
+(e.g., different age groups, cultures, social perception, or the degree of 
+importance of study) 
+shape diffusion.
+
+In regard to the policy contribution, education is an essential concern of children, parents,
+schools, and countries.
+As we discover more and more pieces of knowledge, we have no choice but to be forced to
+learn more and more. This seems to imply that probing a more effective and efficient
+learning method will be indispensable.
+By analyzing learning behavior, teachers and students may gain insights
+into the role of learning behavior and integrate these insights into their teaching
+and studying. In addition, considering the network effects and dynamics
+allows us to better understand how socialeconomics networks are involved in our daily life.
+The potentials and observations reported here help to clarify socioeconomic network power,
+which is worthy of further investigation and extension to other fields.
+
+\newpage
+
+\section*{Objectives}
+This research contains the following objectives:
+\begin{enumerate}
+    \item Propose a theoretical model that captures the similarity of behaviors
+        for the online education platforms as a metric to cluster students.
+    \item Explore the relationship and effects between the characteristics and the behaviors
+        and understand whether students with the similar characteristics result in the similar
+        behaviors.
+    \item Explore whether the friendship network results in similar behavior and vice versa.
+        For example, do the night type students tend to have a friend with the same behavior, or
+        do late-submission type students affects the early-submission type.
+    \item Construct an empirical approach based on the behavior data and explore the relationship between
+        behavior and academic outcomes.
+    \item Provide a strategic guide based on the behavior data 
+        for learning behavior and a study plan for students and instructors. For example,
+        teammate searching and team allocation.
+\end{enumerate}
+
+\newpage
+
+\section{Introduction}
+
+Sociologists and economists agree that individual agents interact
+in huge networks, and the behavior of which is affected by the network
+externalities (\citet{nwExtern}), structure(\citet{struct}), and their peers.
+Peer effects are commonly observed in the education (\citet{eduPeer}; \citet{idenEduPeer};
+\citet{eduPeerBook} and \citet{school}), management (\citet{entre}), health issues
+(\citet{smoke}),
+and policy decision (\citet{author2} and \citet{author1})
+in both theoretical and empirical studies.
+All in all, these works of literature to date seem to confirm the existence and impact
+of social network effects.
+%Meanwhile, literatures in learning and education have documented the identical attention
+%in network effects. 
+
+Moreover, with the rapid development, widespread and
+considerable adoption of online technologies,
+millions and millions of individuals immensely use online social networking (OSN)
+sites such as Facebook (\citet{FB}), Twitter, and Instagram.
+OSNs attract numerous users by
+allowing them to maintain connections with others and present themselves
+in the virtual communities (\citet{FB}).
+A great number of usages results in appreciable data collections by platforms for
+not only users' personal information (\citet{data} and \citet{digi}) but users' online behavior;
+the websites and applications record users' online time, click behaviors, 
+usage frequency, and posts and comments in the forum.
+Such online behavior extraction is hugely adopted in recommender systems
+(\citet{rec}), prediction by machine learning (ML) methods (\citet{CTR} and \citet{click}).
+The applications are not limited to the business field,
+\citet{mooc} use actions and timestamps taken by the anonymized users on a popular MOOC 
+platform\footnote{\url{https://www.mooc.org}} 
+and construct a dynamic network to predict when a student will drop out from
+a course.
+
+Not only do computer scientists and business companies notice the development
+of OSNs and online behavior data, but teachers and educational scholars also
+attempt to delve into them.
+\citet{selfas} cluster students in three behavioral patterns
+and find that students who frequently take online assessments after class tend to
+achieve a higher examination score than those who did not.
+\citet{moodle} attempt to extract and visualize students' learning behavior
+from action logs recorded by Moodle\footnote{\url{https://moodle.org}}, 
+a free and open-source learning management system.
+These kinds of literature leverage online behavior data to perform the purpose.
+
+Tons of online behavior data is collected nowadays; however,
+they seem to receive a little attention from economists, although data collection,
+data analysis, and ML methods are common and trendy in the field of Computer Science (CS).
+We, economists, have cared about whether and how the characteristics 
+result in the economic outcome (\citet{char}) or how personal characteristics
+affect individual behavior for several decades.
+For example, \citet{risk} investigated three datasets and found that
+civil servants are more risk-averse than private-sector employees, 
+and women are more risk averse than men.
+In this big data era, online platform services are embedded in daily life.
+It is worthwhile to link and explore the relationship between the behavior,
+the peer effects, and the economic outcome, especially in education.
+We want to understand how different behaviors lead to different learning outcomes.
+Do students who tend to watch course videos late at night achieve a higher grade?
+What is the impact of different online time distribution and different learning patterns?
+Does the friend share a similar online learning behavior or students with the 
+similar online learning behavior are easier to get familiar with?
+Will students who procrastinate
+in working and submitting the assignments have a significant lower grade? 
+Do students tend to speed up the course videos have a higher grade?
+That's what we want to scrutinize.
+
+The first objective of this research is to perform a theoretical structure
+to cluster students via their online learning behavior and then conduct an
+exhaustive and detailed empirical analysis to examine it.
+Classical methods include K-means clustering (\citet{kmeans} and \citet{kmeansnew}), 
+hierachical clustering (\citet{hier}), 
+and modularity-based methods (\citet{mod} and \citet{mod2}). 
+In addition, tens of algorithms are applied in this field, such as the Louvain algorithm
+(\citet{luv}).
+In this context, how to describe online learning behavior as a metric to determine the similarity
+between two users is the first priority.
+
+The second objective of the research
+is to illuminate the darkness between peer effects and behaviors.
+The numerous literature abounds with theoretical model and empirical results 
+on revealing the impact of peer effects 
+but rarely devote any time to a systematic study of the influence of
+peer effects on online learning behaviors.
+Moreover, the influence of dynamic network evolution on online learning behavior
+is also essential.
+\citet{dynamic} investigate a cohort of 226 engineering students starting their
+undergraduate studies and use statistical models for 
+dynamic network data to investigate the cohort's social network formation processes.
+They find that friendship ties crucially affect academic success and suggest the
+university promotes the development of positive relationships.
+Students strike up a friendship through time, and 
+we want to examine how network dynamics and friendship ties affect the learning behavior,
+or conversely, how the learning behavior affects network dynamics and friendship.
+
+The third objective of the research is to provide learning suggestions to students and instructors.
+With a thorough study of online learning behavior and the corresponding insights,
+we may offer a better study plan to both students and instructors. For example,
+assume that the procrastination may lead to a terrible grade, the instructor can find students
+in the procrastination and help them earlier.
+Online learning behavior may also reveal students' preferences. Students who tend to 
+finish assignments early may prefer joining a team with a similar type
+of teammates. We want to figure out the secret behind the behavior.
+
+With these questions in mind, the research results may help raise the economists' and 
+educational scolars' attention for exploring the possibility of learning behavior,
+and also help students and teachers better acknowledge the role of learning behavior in studying.
+
+%leverage and combine the online behavior data into social network analysis to
+%examine the network effects on the behavior.
+
+%How human beings behave receives attension from discinplilies varing from economics,
+%and pshcology to siocialogy and learning science. Thonsands of researchers try to catch the
+%mistery from human behavior.
+%In economics field, behavioral economics studies the effects on the decision of 
+%individuals and institutions, and how these decisions vary from which derived by
+%classical economic theorys.
+%\citet{BE} provides a general and distinguished introduction to this field.
+%Economists, phycologists, and sociologists agree that people do not live isolatedly.
+%People live in a social network, and we interact and are affected by differents. 
+%We call such effects the peer effect (literature).
+%Literatures have documented how peer effects and network externalities hugely
+%change the academic outcomes (LR), production (LR), blablabla.
+%
+%After the Internet was generated, people's life cannot leave without it. Tons of literatures.
+%
+%With the wide adoption of online platform, bla
+%
+%Under such perspective,
+%
+%This paper axiomatically analyzes a decision problem of institutional choice in
+%
+%\[
+%    \mathscr{N,A,O}=N,A,O\Set{1,\cdots,n}
+%\]
+
+\section{Research Methodology}
+In this section, we organize the current methods to 
+capture the behavior statistics, derive the similarity, detect communities,
+represent the network dynamics, and evaluate the influence of behavior.
+
+
+\subsection{Behavior Extraction}
+Online platforms record several different actions from users, and it is 
+crucial to extract behaviors from data. 
+For example, NTU COOL\footnote{\url{https://cool.ntu.edu.tw}} documents
+total activity time,
+activity (page views) by date, the number of communications, 
+submission time, and assignment grade. If the instructor has uploaded course
+videos to NTU COOL, the videos' completion rate, activity
+(fast forward, rewind, and pause clicks), playing speed, and the number of video comments
+is also recorded.
+
+Not only the web activities but learners’ in-time motions are also also
+worthy of track and examination. 
+In the experimental economics,
+eye-tracking technology has been used to design, implement, and analyze an experiment 
+using this technology to study economic theory (\citet{eye}).
+
+These activities uncover the students' online learning behaviors and learning preferences.
+Further research is needed to colloborate and complete the findings in this area.
+
+\subsection{Similarity}
+\citet{behavclus} use the time-stamped series of completion times for tasks 
+and the time-stamped data of page-clicks
+from each leaner in the dataset as a metric
+and adopt a dynamic time wrapping (DTW) kernel (\citet{dtw} and \citet{svmdtw}) 
+to calculate a pairwise similarity between
+time-series of learner actions, construct the leaner similarity graph, 
+and then apply the community detection to cluster
+learners according to their similar time-series behaviors.
+
+Given two leaners $i$ and $j$ in the set of $N$ leaners $\mathcal{D}=\Set{1,\cdots,N}$
+and the time-series of actions $S_i, S_j$, where $S_i = [s_{i1}\ s_{i2} \cdots s_{in}]^T$
+and $S_j=[s_{j1}\ s_{j2}\cdots s_{jm}]^T$; that is, the compared time-series can be in different length.
+Common approaches for sequence analysis exploit $L_{p}$-norms between $S_i$ and $S_j$
+for its convenience and fast computation; however, such an approach is a one-to-one
+mapping, which often neglects and misaligns sequential patterns.
+Dynamic time wrapping can overcome this problem and
+have advantages over $L_p$-norms in its elastic and robust matching.
+The DTW cost of two time-series $S_i,S_j$ at $(p,q)$ is
+\[
+    c(p,q)=\norm{s_{ip}-s_{jq}}^2+\min\Set{c(p-1,q),c(p-1,q-1)
+    ,c(p,q-1)},
+\]
+and the DTW similarity is the longest path between $S_i,S_j$,
+i.e., $\delta(S_i,S_j)=c(n,m)$.
+
+Moreover, the DTW similarity kernel is defined as
+\[
+    k\left(S_i, S_j\right) = \exp\left\{\frac{-\delta(S_i,S_j)}{\sigma^2}\right\}.
+\]
+We use the DTW similarity kernel to represent the similarity (or distance) between
+learner $i,j$. Therefore, the similarity matrix $Y$ is a $N\times N$ matrix where the value of element
+$y_{ij}$ is $k(S_i, S_j)$, and $Y$ can be treated as a weighted and fully connected adjacency matrix.
+
+The calculation of DTW similarity may become computational consuming with the
+growing number of leaner or longer time series.
+Therefore, dimensionality reduction methods
+are imperative and can be implemented to accelerate the computation. 
+Several methods are proposed and used in ML applicationd, such as principal component analysis (PCA),
+singular value decomposition (SVD), or relaxed minimum spanning tree (RMST).
+As we do not need to connect all nodes (learners) in the graph, we can use
+the RMST algorithm to prune the similarity matrix (see \citet{rmst}).
+
+Given the similarity matrix $Y$, we define the {\it dissimilarity} matrix $Z$ with
+$z_{ij}=1-y_{ij}$. Next, we find the maximal weight in $Z$ along the maximum spanning tree
+path as
+\[
+    b_{ij} = \max\left\{z_{ik},z_{kh},\cdots,z_{cj}\right\}.
+\]
+If $b_{ij}$ is much smaller than $z_{ij}$, we discard the direct link between $i,j$;
+if $z_{ij}$ and $b_{ij}$ are comparable, we leave the link between $i,j$ if
+\[
+    b_{ij}+\gamma(d_i+d_j) > z_{ij},
+\]
+where $d_i=\min_k z_{ik}$ and $\gamma$ is a parameter. Such RMST method merges
+local and global impact of the data to sparsify the network.
+Meanwhile, pruning the network help community detection methods speed up and 
+save computation time.
+
+\subsection{Clustering}
+Community detection methods allow us to detect groups with similar properties 
+and extract groups for various reasons and interests. Tens of methods can be used to 
+separate the nodes of a graph into subgraphs, including K-means clustering, 
+hierarchical clustering, modularity-based methods, and Markov stability and vector partitioning
+(\citet{ms}). This research can use either K-means clustering and Markov stability or vector partitioning
+methods. The former can specify the number of target clusters,
+and the latter is a generalized method that
+uses the diffusion of a Markov process on the graph to unveil the subgraph
+at all scales. We can shift between two methods depending on the purpose. More specifically,
+if we merely need two subcommunities to separate learners, we can adopt K-means clustering.
+
+We aim at partitioning students in different group based on
+their extracted behavior properly and revealing the interactions in the group members.
+A general iterative cluster approach is to minimize
+the distance between each node and the center of group, and update the center iteratively.
+Given a $d$-dimensional set of $N$ students properties $\mathscr{X}=\{x_1,\cdots,x_N\}$
+and $K$ groups, we define a $d$-dimensional set of $K$ clusters $\mathscr{C}=\{c_1,\cdots,c_K\}$,
+the objective function of K-means clustering algorithm optimizes
+\[
+    \begin{array}{C}
+        f^{\text{KM}}(\mathscr{X,C})=\sum_{i=1}^N\min_{j\in\{1,\cdots,K\}}\norm{x_j-c_j}^2.
+    \end{array}
+\]
+A membership $0\leq m^{\text{KM}}_j(c_j|x_i)\leq1$ defines the proportional of data $x_i$ belonging to
+the group $j$ with the center $c_j$, and the weight $w(x_i)>0$ reflects the influence in 
+updating the new center in the group.
+In the K-means scenario, it is
+\[
+    \begin{array}{RCL}
+        m_j^\text{KM}(c_{j^*}|x_i) & = & 
+        \begin{cases}
+            1 & \text{if } j^*=\argmin_j\norm{x_i-c_j}^2 \\
+            0 & \text{otherwise,}
+        \end{cases} \\
+        w^\text{KM}(x_i) & = & 1.
+    \end{array}
+\]
+Another common Bayesian approach is the Gaussian expectation-maximization (GEM).
+It minimizes the objective function of GEM
+\[
+    \begin{array}{C}
+        f^{\text{GEM}}(\mathscr{X,C})
+        =-\sum_{i=1}^N\log\left(\sum_{j=1}^kp(x_i|c_j)p(c_j)\right),
+    \end{array}
+\]
+where $p(x_1|c_j)$ is the probability of $x_i$ conditional on that it's
+generated by the Gaussian distribution with center $c_j$,
+and $p(c_j)$ is the prior of $c_j$. The membership and the weight in the GEM
+scenario is
+\[
+    \begin{array}{RCL}
+        m_j^{\text{GEM}}(c_j|x_i) & = & 
+        \frac{p(x_i|c_j)p(c_j)}{p(x_i)} \\
+        w^{\text{GEM}} & = & 1.
+    \end{array}
+\]
+Lastly, the steps of iterative algorithm is:
+\begin{enumerate}
+    \item Initialize the center $\mathscr{C}$.
+    \item For each $x_i$, compute its membetship $m_j(c_j|x_i)$
+        and weight $w(x_i)$.
+    \item Recompute each center $c_j$ after assigning $x_i$ to
+        one group.
+    \item Repeat the step 2 and 3 until convergence.
+\end{enumerate}
+The time complexity of clustering algorithms above is $\mathscr{O}(nkd)$.
+
+\subsection{Dynamic Evolution}
+%cite:https://reader.elsevier.com/reader/sd/pii/S0378873309000069?token=77E80FB6F5EEAFF76EAB13EC5D4CF697B4FA625800327C6FB979B2A1EAC1E951664576D5A0C144E2EA2D582EA14E9F42&originRegion=us-east-1&originCreation=20220619041405
+Network dynamics can be studied by the spatial dynamic panel data (SDPD) model
+(\citet{sdpd})
+and the stochastic actor-based model (\citet{sto} and \citet{storev}).
+The stochastic actor-based model has been studied in
+several fields, varying from statistics to psychology and medicine. 
+It can represent numerous
+influences on network change, allow to estimate
+parameters expressing such influences, 
+and test corresponding hypotheses.
+The difficulty of network dynamics results from multi changes in network structure
+and the individual behavior. Individual behavior is often not only 
+influenced by networks but also imposes influence on networks.
+Researchers impose several assumptions on the problem and adopt a continuous-time Markov process
+to ease the problem. It is commonly assumed that the changing system consisting of 
+network and behavior follows a Markov process, and no more than one network variable
+or behavior variable can change at any moment $t$.
+
+Given a changing network on $n$ individuals $\mathscr{G}$
+\footnote{A network $\mathscr{G}$ is a $n\times n$ adjacency matrix.}
+and the vector of behavior state of
+individual $i$ $Z_i=[z_i(1), z_i(2),\cdots,z_i(t)]$, 
+$\lambda_i^\mathscr{G},\lambda_i^Z,f_i^\mathscr{G}, f_i^Z$
+are rate functions for a Possion process 
+and objective functions of $\mathscr{G}$ and $Z$.
+We first present the objective function of
+individual $i$ for the network
+and the behavior:
+\[
+    \begin{array}{CCC}
+        f_i^\mathscr{G}(g,z)=\sum_{j}\beta_j^\mathscr{G}s_{ij}^\mathscr{G}(g,z)
+        %\equiv s_k^\mathscr{G}(g,z)\sum_k\beta_k^\mathscr{G}
+        & \text{and} &
+        f_i^Z(g,z)=\sum_{j}\beta_j^Zs_{ij}^Z(g,z),%\equiv s_k^Z(g,z)\sum_k\beta_k^Z.
+    \end{array}
+\]
+where $s_{ij}^\mathscr{G}(g,z)$ and $s_{ij}^Z(g,z)$ are utility functions
+depending on the behavior of the focal individual $i$ and the network,
+which also provides the micro-foundation.
+
+Since the chances for change are for either the network or the behavior of the individual,
+given the individual $i$ has an opportunity for change in behavior, the current
+state value $z_i(t)=s^0$, the option for the next possible state $z^0-1,z^0,z^0+1$,
+the probability of state transition is 
+\[
+    p_i^Z(\beta,g,z^0,z)= \begin{cases}
+        \frac{\exp\left\{f_i^Z(\beta,g,z^0,z)\right\}}{\sum_{\delta=-1}^1\exp\left\{f_i^Z(\beta,g,z^0,z^0+\delta)\right\}}
+        & \text{if } z=z^0+\delta, \, \delta\in\{-1,0,1\} \\
+        0 & \text{otherwise.}
+    \end{cases}
+\]
+We can use the average similarity effect 
+\[
+    s_{i}^Z(g,z)=g_{i+}^{-1}\bigg\rvert_{t-1}\sum_{j}g_{ij}\bigg\rvert_{t-1}
+    \left(\text{sim}_{ij}^Z-\overline{\text{sim}}^Z\right)\bigg\rvert_{t}
+\]
+to capture the effect of network incluence, where
+\[
+    \text{sim}_{ij}^Z=\frac{1-|z_i-z_j|}{\max_{ij}|z_i-z_j|}
+\]
+and $\overline{\text{sim}}^Z$ is the mean of similarity. In addition, the homophily
+from certain behavior can be captured by the similarity effect
+\[
+    s_i^\mathscr{G}(g,z)=\sum_{j}g_{ij}\bigg\rvert_{t}
+    \left(\text{sim}_{ij}^Z-\overline{\text{sim}}^Z\right)\bigg\rvert_{t-1}.
+\]
+
+Furthermore, we can use the Generalized Method of Moments (\citet{dyes})
+and Bayesian Markov chan Monte Carlo approach (\citet{dybaye})
+to estimate parameters for network and behavior $\beta^\mathscr{G}, \beta^Z$.
+
+\subsection{Social Interactions Model}
+Now that we can cluster learners from their behavior similarity, and it is natural to examine
+what behavior is more effective and efficienct for learners.
+The traditional model for studying peer effects is the
+linear-in-linear model (maskin 1993). 
+However, the linear-in-linear model suffers from the reflection
+problem, preventing researchers from identifying endogenous and contextual effects.
+Fortunately, the spatial autoregressive (SAR) model can overcome the reflection problem.
+The network interaction model with the endogenous and
+contextual peer effects and the group effects
+is specified as
+\[
+    y_{ig}=\lambda\sum_{j=1}^{m_g}\overline{w}_{ijg}y_{jg}+\beta_1x_{ig}
+    +\beta_2\sum_{j=1}^{m_g}\overline{w}_{ijg}x_{jg}
+    +\alpha_g+\varepsilon_{ig},\quad g\in\Set{1,\cdots,n_\mathscr{G}},
+\]
+where $y_{ig}$ is the outcome of interest for the
+individual $i$ within the group $g$,
+$x_{ig}$ is the independent variable 
+for the individual $i$ within the group $g$,
+and 
+$\overline{w}_{ijg}=\frac{w_{ijg}}{\sum_jw_{ijg}}$,
+$w_{ijg}=1$ if individual $j$ is $i$'s friend.
+$\lambda,\beta_1,\beta_2$ and $\alpha$ reflect the endogeneity, 
+the own effect, contextual (peer) effect, and the fixed group effect.
+
+To probe more deeply the influence of online learning behavior,
+we emphasize on the estimation of group effect $\alpha$ to evaluate different
+behaviors.
+
+
+
+\section{Data Collection}
+We collaborate with the
+Center for Teaching and Learning Development Digital
+Learning Center at National Taiwan University(NTU).
+They offer an online teaching and learning platform,
+NTU COOL\footnote{\url{https://cool.ntu.edu.tw}}, 
+to serve faculty members and students at the university
+to use digital technologies and media materials in the course.
+NTU COOL team collect several user activities to do the research, including total activity time,
+activity (page views) by date, the number of communications, 
+submission time, and assignment grades. If the instructor has uploaded course
+videos to NTU COOL, the videos' completion rate, activity
+(fast forward, rewind, and pause clicks), playing speed, and the number of comments
+on the video.
+
+Furthermore,
+as the research is relative to personal information,
+to protect the rights and welfare of human research
+subjects recruited to participate in research activities,
+our research will be verified by the institutional review board (IRB) from
+the Center for Taiwan Academic Research Ethicals.
+
+In addition to the online learning behavior,
+we are also interested in the network dynamics, behavior diffusions, and 
+peer effects. Following the \cite{dynamic},
+we plan to track a cohort of freshmen and 
+document various individual and
+socioeconomic background variable to 
+conduct the empirical setting to examine that
+with the growing links between learners and
+the emergence of social networks, whether learners'
+online learning behaviors are affected by peers,
+and whether learners' behaviors influence the network
+emergence and formation.
+
+\bibliography{ref}
+
+%\end{CJK*}
+\end{document}
