@@ -1,0 +1,757 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PassOptionsToPackage{subsection=false}{beamerouterthememiniframes} % delete subsection line
+\documentclass{beamer}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{url}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{booktabs}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{pifont}
+\usepackage{framed}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xeCJK}
+\usepackage[natural, svgnames]{xcolor}
+\usepackage{natbib}
+\bibliographystyle{econ}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=myblue,
+    linkcolor=myblue,
+    urlcolor=myred
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% beamer theme setting
+\usetheme{Szeged}
+\usecolortheme{rose}
+\usefonttheme{serif}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% unable the control buttons at bottom
+\setbeamertemplate{navigation symbols}{}
+
+% define my color
+\definecolor{myred}{RGB}{192,46,46}
+\definecolor{myblue}{RGB}{7,75,164}
+\definecolor{mygreen}{rgb}{0.11,0.7,0.02}
+\definecolor{myyellow}{rgb}{0.7,0.625,0.1}
+
+% modify footer
+\newcommand{\shortauthor}{\textcolor{myblue}{Yu-Chieh Kuo}}
+\setbeamertemplate{footline}
+{%
+  \begin{beamercolorbox}[colsep=1.5pt]
+      {upper separation line foot}
+  \end{beamercolorbox}
+  \hbox{%
+      \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex, 
+          dp=2.3ex, leftskip=.3cm plus1fill, rightskip=.3cm]
+          {title in head/foot}%
+          \usebeamerfont{title in head/foot}
+          \parbox{.28\paperwidth}{\raggedright\inserttitle}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex, 
+        dp=2ex, center]{title in head/foot}%
+      \usebeamerfont{author in head/foot}
+      \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.333333\paperwidth, ht=4ex,
+        dp=2ex, leftskip=.3cm, rightskip=.3cm plus1fil]
+        {title in head/foot}%
+        \usebeamerfont{title in head/foot}
+        \parbox{.28\paperwidth}{\raggedleft\shortauthor}
+    \end{beamercolorbox}}
+  \begin{beamercolorbox}[colsep=1.5pt]
+      {lower separation line foot}
+  \end{beamercolorbox}
+}
+
+%% modify theorem and block
+%\usepackage{parskip}
+%%\usepackage{microtype}
+%\newlength{\prevparskip}
+%
+%\defbeamertemplate{block begin}{lines}{%
+%    \par\vskip2ex plus 1fil%
+%    \setlength{\prevparskip}{\parskip}%
+%    \setlength{\parskip}{0pt}%
+%    \begin{beamercolorbox}{block title}%
+%        \usebeamerfont{block title}%
+%        \vskip-0.6ex%
+%        \insertblocktitle%
+%        \vskip-2ex%
+%        {\color{myblue}\rule{\textwidth}{1pt}}%
+%    \end{beamercolorbox}%
+%    \nointerlineskip%
+%    \begin{beamercolorbox}[vmode]{block body}%
+%        \usebeamerfont{block body}%
+%        \vskip 1.2ex%
+%}
+%
+%\defbeamertemplate{block end}{lines}{%
+%    \end{beamercolorbox}%
+%    \vskip-1ex%
+%    \rule{\textwidth}{1pt}%
+%    \setlength{\parskip}{\prevparskip}%
+%    \vskip-1ex plus 1fil
+%}
+%
+%\setbeamertemplate{blocks}[lines]
+
+% modify section and subsection's entry
+\setbeamertemplate{section in toc}{
+  {\color{myblue}\inserttocsectionnumber.}~\inserttocsection}
+\setbeamertemplate{subsection in toc}{
+\hspace{1.2em}{\color{myblue}$\triangleright$}~\inserttocsubsection\par}
+
+% modify itemize's entry and position
+\setlist[itemize]{label=\textcolor{myblue}{$\triangleright$}}
+\setlength{\leftmargini}{0pt}
+
+% modify color
+\setbeamercolor{block title}{fg=myblue, bg=white}
+\setbeamercolor{block body}{fg=black, bg=white}
+%\setbeamercolor{block title alerted}{use=structure, fg=white, bg=myred!90!white}
+%\setbeamercolor{block body alerted}{use=structure, fg=black, bg=myred!20!white}
+\setbeamercolor{frametitle}{fg=myblue}
+\setbeamercolor{separation line}{bg=myblue}
+\setbeamercolor{section in head/foot}{fg=myblue}
+\setbeamercolor{subsectiopn in head/foot}{fg=myblue}
+\setbeamercolor{section in toc}{fg=myblue}
+\setbeamercolor{subsection in toc}{fg=myblue}
+\setbeamercolor*{title}{fg=myblue}
+\setlist[description]{format=\textcolor{myblue}}
+
+% Modify margin setting
+\justifying
+\setbeamersize{text margin left=1.8em,text margin right=1.8em}
+\setlength{\parindent}{2em}
+
+\addtobeamertemplate{frametitle}{\setlength{\parindent}{0em}}{}
+\addtobeamertemplate{block begin}{\setlength{\parindent}{0em}}{\setlength{\parindent}{2em}}
+\addtobeamertemplate{block example begin}{\setlength{\parindent}{0em}}{\setlength{\parindent}{2em}}
+\settowidth{\leftmargini}{\usebeamertemplate{itemize item}}
+%\addtolength{\leftmargini}{\labelsep}
+
+% modify font
+\setCJKmainfont{思源宋體 TW}
+\setmainfont{Philosopher}
+\setbeamerfont{title}{size=\huge, series=\bfseries}
+\newfontfamily\chancery{Apple Chancery}
+\DeclareTextFontCommand{\textch}{\chancery}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcolumntype{R}{>{\displaystyle}r}
+\newcolumntype{C}{>{\displaystyle}c}
+\newcolumntype{L}{>{\displaystyle}l}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title page information
+
+\title{
+    Media Platforms' Content Provision Strategies and Sources of Profits
+}  
+\author{Yu-Chieh Kuo\inst{1}} 
+\date{\today} 
+
+\institute[NTU]
+{
+    \inst{1}
+    Department of Information Management,
+    National Taiwan University
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginSection[]
+{
+    \begin{frame}[noframenumbering]
+      \frametitle{}
+      \tableofcontents[currentsection, hideallsubsections]
+    \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\hl}[1]{\textcolor{myblue}{#1}}
+\newcommand{\rhl}[1]{\textcolor{myred}{#1}}
+\newcommand{\adv}{\text{advertiser}}
+\newcommand{\fc}{\textch{\hl{Free-content}}}
+\newcommand{\nad}{\textch{\hl{No-ad}}}
+\newcommand{\pcwa}{\textch{\hl{Paid-content-with-ads}}}
+\newcommand{\dual}{\textch{\hl{Dual}}}
+\newcommand{\free}{\textch{\hl{Free}}}
+\newcommand{\pccm}{\text{Perfectly Competitive Content Market}}
+\newcommand{\mcm}{\text{Monopoly Content Market}}
+\newcommand{\mccm}{\text{Moderately Competitive Content Market}}
+\newcommand{\eq}{\text{equilibrium}}
+\newcommand{\Pp}[1]{\text{Proposition #1}}
+\newcommand{\Int}{\text{Intuition}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\includeonlyframes{current}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Background}
+    \framesubtitle{}
+    \begin{itemize}
+        \item The media platforms grow and be one part
+            of our life nowadays.
+        \item We can observe that platforms adopt different
+            strategies for monitization, for example,
+            subscription, ad-only, dual-adoption.
+        \item Moreover, UGC (User-Generated-Content) and PGC
+            (Professionally-Generated-Content) platforms face
+            different trade-off when determining their strategy.
+        \item At the same time, users and advertisers have their
+            desire for content and consumer.
+            \begin{itemize}
+                \item Users want to procure contents in their favor.
+                \item Advertisers want to display their ads to their targets.
+            \end{itemize}
+        \item \hl{Platforms nowadays iteract with multi agents: users, \adv s,
+            content suppliers.}
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Questions}
+    \begin{itemize}
+        \item How do platforms adopt their strategies
+            under different scenarios with the interaction between content suppliers,
+            consumers, and advertisers?
+        \item What is an optimal strategy for a media platform under
+            different scenario?
+        \item How does consumers' desire for content and advertisers' desire
+            for consumers affect a platform's content provision strategy?
+        \item Specificly, we want to examine the optimal strategy \hl{under different
+            content market structures}.
+            \begin{itemize}
+                \item We will consider \hl{perfect competition, monopoly,} and
+                    \hl{moderate competition} in content market structures.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Literature Review}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Researchers highlight and analyze various issue for
+            two-sided platforms in buyer-seller markets, such as platform competition
+            in \citet{arms06}, pricing in \citet{weyl10}, and network asymmetry in
+            \citet{ambrus09}.
+        \item This research follows the related literature on two-sided media markets,
+            and consider the empirical evidence of ads dislike from consumers in 
+            \citet{wil08}, the desire of reaching consumer from \adv s in \citet{arg07}
+            , and the condition to offer consumers an opinion of paying for no ads in
+            \citet{shin19}.
+        \item \hl{However, these works focus on the consumer and \adv\ side but abstract
+            away from the content side of the market.} We extend to three-sided platforms
+            and include the consumers' desire for content, then examine how platforms
+            should allocate its limited bandwidth for content and ads.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame} 
+
+\section{Model Setting} 
+\begin{frame}%[label=current]
+    \frametitle{Consumer}
+    \framesubtitle{Utility from procuring content}
+    \begin{itemize}
+        \item We start from a duopoly media markets where
+            media pkatforms procure content from suppliers, 
+            allocate a space for content and host the promotional
+            messages of \adv s.
+        \item The consumer's utility when joining platform $i$ to enjoy the content
+            is $v\cdot\left(a_i-\frac{1}{2}a_i^2\right)$.
+            \begin{itemize}
+                \item $v$ represents how consumer desires the content.
+                \item $a_i\in[0,1]$ is the proportion of platform $i$'s space
+                    allocated for content; $1-a_i$ is the space for ads on
+                    the other hand.
+            \end{itemize}
+        \item This formulation \hl{captures the reality that the utility of the
+            incremental content is likely to be lower as the proportion of content
+            increases.}
+        \item Moreover, the marginal utility of content declines and may reach to a 
+            balance of the potential revenue from consuemrs and ads.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Consumer}
+    \framesubtitle{Utility from joining platform}
+    \begin{itemize}
+        \item Consumer are heterogeneous in their preference for a platform,
+            and we capture such the heterogeneity by \hl{Hotelling line}.
+            \begin{itemize}
+                \item Assume that consumers are uniformly distributed on $[0,1]$.
+                \item A consumer located at a distance $x$ from platform $i$
+                    experiences a disutility by $tx$, where $t$ captures the
+                    consumers' sensitivity to platform characteristics.
+            \end{itemize}
+        \item The consumers pay a price $p_{iC}$ when joining platform $i$,
+            and obtain the overall utility
+            \[
+                U_{iC}(x)=v\cdot\left(a_i-\frac{1}{2}a_i^2\right)
+                -tx-p_{iC}.
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Advertisers}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Advertisers want to join a platform to promote their products
+            and services to consumers.
+        \item Advertisers' valuation of a consumer is $r_A$, and if they
+            can reach $n_{iC}$ consumers through platform $i$, they obtain
+            the utility $u_{iA}=r_A\cdot n_{iC}$.
+        \item Assume that a platform can capture the entire surplus from 
+            \adv s due to a scarce ad promotion space, the platform will
+            set a promotion price at $p_{iA}=u_{iA}=r_A\cdot n_{iC}$ (\citet{shin15})
+            and earn an ad revenue by $(1-a_i)p_{iA}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Content Suppliers}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Platform purchase the content from the suppliers to serve their
+            consumers.
+        \item Let $c$ be the marginal cost of producing content and the supplier
+            charges $p_S$ for a unit of content, their profit is
+            $\Pi_S=(p_S-c)\cdot\sum_{i}a_i$. \\
+            %\textcolor{myred}{(The author doesn't consider a differential pricing
+            %for the content to simplify the model.)}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Media Platforms}
+    \framesubtitle{Profits and strategy space}
+    \begin{itemize}
+        \item Consequently, platform $i$ earns the profit
+            $\Pi_{iP}=n_{iC}\cdot p_{iC}+(1-a_i)\cdot p_{iA}-a_i\cdot p_S$,
+            and it faces an optimization problem by deciding
+            \hl{the proportion allocated for content $a_i$, and
+            the price charging to consumers $p_{iC}$}.
+        \item A platform can adopt one of the following strategies.
+    \end{itemize}
+    \begin{description}
+        \item[\fc:] The platform chooses to earn all its profits from \adv s
+            by setting $0<a_i<1$ and $p_{iC}=0$.
+        \item[\nad:] The platform chooses to earn all its profits from consumers
+            by setting $a_i=1$ and $p_{iC}>0$.
+        \item[\dual:] The platform earns profits from both consumers and \adv s
+            and set $0<a_i<1$ and $p_{iC}>0$.
+    \end{description}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Decision Sequence}
+    \framesubtitle{}
+    \begin{itemize}
+        \item In the \hl{first stage}, \hl{the content supplier} sets a content price $p_S$.
+        \item In the \textcolor{myred}{second stage}, 
+            \textcolor{myred}{platforms} choose their strategies after observing
+            $p_S$ and set $a_i$ and $p_{iC}$.
+        \item In the \textcolor{myyellow}{third stage}, 
+            \textcolor{myyellow}{consumers} determine which platform to join after 
+            observing $a_i$ and $p_{iC}$.
+    \end{itemize}
+\end{frame}
+
+\section{Perfectly Competitive Market}
+\begin{frame}%[label=current]
+    \frametitle{Consumer's Utility}
+    \framesubtitle{}
+    \begin{itemize}
+        \item An infinite number of homogeneous content suppliers
+            engage in the market and compete with each other.
+        \item The \eq\ content supplier price is $p_S=c$ due to the 
+            perfect competition.
+        \item Assume that platform 1 is located at $x=0$ and platform 2
+            at $x=1$, the consumers utility joining two platforms is
+            \[
+                \begin{array}{L}
+                    U_{1C}(x)=v\cdot\left(a_1-\frac{1}{2}a_1^2\right)
+                    -tx-p_{1C}\equiv V(a_1)-tx-p_{1C} \\
+                    U_{2C}(x)=v\cdot\left(a_2-\frac{1}{2}a_2^2\right)
+                    -t(1-x)-p_{2C}\equiv V(a_2)-t(1-x)-p_{2C},
+                \end{array}
+            \]
+            and the indifferent consumer is located at
+            \[
+                x_0=\frac{1}{2}+\frac{V(a_1)-V(a_2)}{2t}-\frac{p_{1C}-p_{2C}}{2t}.
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Platform's strategy}
+    \framesubtitle{}
+    \begin{itemize}
+        \item The mass of consumers joining platform 1 and 2 is
+            $n_{1C}=x_0$ and $n_{2C}=1-x_0$, and platform $i$
+            charges the ad promotion fee $p_{iA}=r_A\cdot n_{iC}$
+            to \adv s.
+    \end{itemize}
+    \begin{description}
+        \item[Lemma 1:] In this context, if the marginal cost of 
+            producing content is too high ($c\geq\tau$), both platforms adopt
+            \fc\ strategies or \dual\ strategies otherwise, where
+            $\tau=\frac{1}{2}\left(-r_A+\frac{tv}{r_A}\right)$.
+        \item[Intuition:] Since the content price $p_S=c$, platforms are
+            not willing to buy too much content and display it 
+            if $p_S$ is too high and will adopt a \fc\ strategy to 
+            attract more users, and profit from \adv s. \nad\ will not be a case
+            since \hl{we don't consider the user's disutility of watching ads here.}
+            We will extend this disutility later.
+%        \item[\textcolor{myred}{My comment:}] \textcolor{myred}{I don't feel
+%            the assumption of excluding the user's disutility against ads
+%            is feasible and closed to the reality.}
+    \end{description}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Equilibrium and Profit}
+    \framesubtitle{}
+    \begin{itemize}
+        \item If $c\geq\tau$, both platforms adopt \fc\ strategy
+            then set $a_i^*=a^\free\equiv1-\frac{t(2c+r_A)}{\sqrt{tvr_A(2c+r_A)}}$
+            and $p_{iC}^*=p_{iC}^\free\equiv0$, and obtain a profit
+            at $\Pi_{iP}^\free=\frac{t(2c+r_A)^2}{2\sqrt{tvr_A(2c+r_A)}}-c$.
+        \item If $c<\tau$, both platforms adopt \dual\ strategy
+            then set $a_i^*=a^\dual\equiv\frac{-2c-r_A+v}{v}$
+            and $p_{iC}^*=p_C^\dual\equiv\frac{-2cr_A-r_A^2+tv}{v}$,
+            and obtain a profit at $\Pi_{iP}^\dual=\frac{4c^2-2(v-r_A)c+vt}{2v}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Platform's strategy under different desire}
+    \framesubtitle{}
+    \begin{description}
+        \item[\Pp{1(a)}:] A growing consumers' desire for content
+            leads to the transition for platforms from using a \fc\
+            strategy to \dual\ and earn less profits.
+            \begin{itemize}
+                \item Recall that in \hl{Lemma 1},
+                    if the marginal cost of producing content is higher than
+                    $\tau=\frac{1}{2}\left(-r_A+\frac{tv}{r_A}\right)$,
+                    both platforms adopt \fc\ strategies.
+                \item The value of $\tau$ increases as the consumers' desire
+                    $v$ grows, which may change the relationship between
+                    $c$ and $\tau$.
+                \item However, due to $\frac{\partial {\Pi_{ip}^\free}}{\partial {v}}<0$
+                    and $\frac{\partial {\Pi_{ip}^\dual}}{\partial {v}}<0$,
+                    the profits decreases with the growing $v$.
+                    Intuitively, the platform charges a higher
+                    price due to a higher $v$, but also needs to offer more content
+                    to attract customers, which ascends the cost and leaves
+                    less space for ads.
+            \end{itemize}
+    \end{description}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Platform's strategy under different desire}
+    \framesubtitle{}
+    \begin{description}
+        \item[\Pp{1(b)}:] A growing \adv s' desire for consumers ($r_A$)
+            leads to the transition for platforms from \dual\ strategy
+            to \fc\ and benefits platforms
+            \begin{itemize}
+                \item A growing $r_A$ decreases $\tau$ and thus
+                    faciliates $c\geq\tau$.
+                \item An increase in ads' desire for consumers motivates
+                    platforms to increase the ads space by reducing the content's,
+                    which enhances the ads profit but also decreases the
+                    procurement cost for content.
+            \end{itemize}
+        \item[\Pp{2}:] When the price of content is sufficiently high,
+            an increase in content price improves competing platforms' profit.
+            \begin{itemize}
+                \item Both platforms adopt a \fc\ strategy if 
+                   the price of content is sufficiently high. An increase of 
+                   the price of content motivates platforms to reduce the proportion
+                   of content, which leads to a higher ads revenue and a lower
+                   procurement cost.
+            \end{itemize}
+    \end{description}
+\end{frame}
+
+%\begin{frame}[label=current]
+%    \frametitle{\pccm}
+%    \framesubtitle{}
+%    \begin{description}
+%        \item[\Pp{1}:] A growing \adv s' desire for consumers ($r_A$) benefits
+%            platforms.
+%        \item[\Int:] Advertisers are willing to pay more if their desire
+%            of promotion is stronger.
+%        \item[\Pp{2}:] When the price of content is sufficiently high,
+%            an increase in content price improves competing platforms' profit.
+%        \item[\Int:] Remind that both platforms adopt a \fc\ strategy if 
+%            the price of content is sufficiently high. An increase of 
+%            the price of content motivates platforms to reduce the proportion
+%            of content $a_i$, which leads to a higher ad revenue and a lower
+%            procurement cost.
+%    \end{description}
+%\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Ads exposion}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Advertisers are more willing to pay more for promotion if
+            a platform hosts more proportion of content since customers
+            are expected to spend more time on platform and exposed to
+            ads for a longer time.
+        \item The price of ads is modified as $p_{iA}=a_i^k\cdot r_A\cdot n_{iC}$,
+            where $0\leq k\leq1$ captures the sensitivity of the ad price to the
+            propostion of content.
+        \item The author claim that this modification consistently shows the platform
+            has to face a balance for revenues between consumers and \adv s,
+            and there exists a small $k\in(0,1]$ to make the result consistent with
+            \Pp{2}.
+    \end{itemize}
+    \begin{description}
+        \item[\textcolor{myred}{My comment:}] \textcolor{myred}{A larger proportion 
+            of content excludes the exposion of ads. 
+            Moreover, the author doesn't provide a proof for the claim.
+            I think this modification should be improved.}
+    \end{description}
+\end{frame}
+
+\section{Monopoly Market}
+\begin{frame}%[label=current]
+    \frametitle{Content Supplier's Decision}
+    \framesubtitle{}
+    \begin{itemize}
+        \item The content supplier has no market power in the previous setting.
+            Now we examine the case that the content supplier can set the content price
+            $p_S$ and then discuss the interaction between the content supplier and 
+            the platform.
+        \item The content supplier determines the content price $p_S$ 
+            to maximize its profit by anticipating
+            the platform's strategy, that is,
+            \[
+                \max\ \Pi_S=(p_S-c)\sum a_i(p_S).
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Platform's Strategy and Profit}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Platforms' strategies are consistent with \hl{Proposition 1 and 2}.
+            We want to observe the interactions between platforms and content suppliers
+            for the different desire from consumers and advertisers.
+    \end{itemize}
+    \begin{description}
+        \item[\Pp{3(a)}:] The stronger consumers' desire for content
+            benefits the content supplier regardless of platforms' strategies.
+            \begin{itemize}
+                \item Such desire motivates platforms to purchase more 
+                    content in all strategies and promotes the content supplier's
+                    revenue.
+            \end{itemize}
+        \item[\Pp{3(b)}:] The stronger \adv s' desire for consumer
+            hurts the content supplier's revenue under a \dual\ strategy
+            but benefits it under a \fc\ strategy.
+            \begin{itemize}
+                \item Such desire motivates platforms to increase the space of ads
+                    and consequently demands less content. \textcolor{myred}{However,
+                    both I and the author cannot give the latter an intuition, and I have no
+                    choice but to treat it as a mathematical result.}
+            \end{itemize}
+    \end{description}
+\end{frame}
+
+\begin{frame}%[label=current]
+    \frametitle{Content Price}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Given different content cost, platforms select different strategies.
+        \item Content cost alters to $p_S$ in this context, but the strategy selecting criteria
+            for platforms is consistent in the previous one, that is, depending on 
+            the cost of content.
+        \item If $p_S<\tau$, platforms choose \dual\ strategy and the 
+            demand for content in this case is
+            $a^\dual(p_S)=\frac{-2p_S-r_A+v}{v}$; platforms choose \fc\
+            and have the demand $a^\free(p_S)=1-\frac{t(2p_S+r_A)}{\sqrt{tvr_A(2p_S+r_A)}}$.
+    \end{itemize}
+    \begin{description}
+        \item[\Pp{4}:] A monopoly content supplier may not extract all surplus
+            from the platforms.
+            \begin{itemize}
+                \item Since platforms are able to profit from ads, \hl{they can
+                    balance the profit from both channels carefully,
+                    which is different with the traditional market.}
+            \end{itemize}
+    \end{description}
+\end{frame}
+
+\section{Moderately Competitive Market}
+\begin{frame}[label=current]
+    \frametitle{Moderate Competition on Content Price}
+    \framesubtitle{}
+    \begin{itemize}
+        \item In addition to the previous two polar cases, we observe
+            only a few content suppliers and moderate competition
+            in the content market in some markets.
+        \item Consider a duopoly content market. Let $p_{jS}$ be the price of 
+            content from supplier $j$, and $h_i$ be the proportion of 
+            content platform $i$ buys from supplier 1 and $1-h_i$
+            from supplier 2.
+        \item Given the content procurement decision, the profits of platform $i$ is
+            \[
+                \Pi_{iP}=n_{iC}p_{iC}+(1-a_i)p_{iA}
+                -a_i\cdot h_i\cdot p_{1S}
+                -a_i\cdot(1-h_i)\cdot p_{2S}.
+            \]
+        \item The corresponding profits of the two content suppliers are
+            \[
+                \begin{array}{RCL}
+                    \Pi_{1S}=p_{1S}\cdot\sum_{i}(a_i\cdot h_i)
+                    & \text{and} &
+                    \Pi_{2S}=p_{2S}\cdot\sum_{i}\left(a_i\cdot(1-h_i)\right).
+                \end{array}
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Competition among Content Suppliers}
+    \framesubtitle{}
+    \begin{itemize}
+        \item We assume two content suppliers are horizontally different to the platforms.
+            Their difference factors, such as integration of systems, may influence platforms'
+            decision but \hl{not affect the utility for consumers}.
+            \begin{itemize}
+                \item This allows us to focus on how mere competition between content
+                    suppliers affects content price.
+            \end{itemize}
+        \item We use the marginal substitution rate (MRS) of the suppliers as a metric, and
+            MRS gives the change in the demand when the content price increases by 1\%,
+            where $MRS_i(p_{1S},p_{2S})\equiv\left|\frac{\partial h/h}{\partial p_{iS}/p_{iS}}\right|$,
+            and $h\equiv h_1=h_2$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Moderate Competition in Content Price}
+    \framesubtitle{}
+    \begin{itemize}
+        \item A high MRS suggests that the content suppliers are more substitutable
+            and the market is more competitive and vice versa.
+        \item In a traditional one-sided market, if the seller increases the price,
+            the buyer switches to the opposite firm.
+        \item \hl{However, in a multi-sided media market, if one seller (content supplier)
+            increases the price, the buyer (platforms) has two options: decrease the
+            proportion of content, or switch to the competing supplier}
+            \begin{itemize}
+                \item \hl{This reduces the competition for the content suppliers in price.}
+                    Content suppliers don't extremely bear the price competition compared with that
+                    in a monopoly market, and the equilibrium price in a duopoly market is
+                    higher than a monopoly one.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Ads Disutility for Consumers}
+    \framesubtitle{}
+    \begin{itemize}
+        \item In the original model, we don't consider the nuisance of ads for consumers.
+            Here we extend the model by including a direct disutility of ads.
+        \item Let $d_C\geq0$ be the consumers' dislike for a unit space of ads, then the
+            utility of a consumer at distance $x$ from platform $i$ is 
+            \[
+                U_{iC}(x)=v\left(a_i-\frac{1}{2}a_i^2\right)\hl{-d_C\cdot(1-a_i)}
+                -tx-p_{iC}.
+            \]
+            \begin{itemize}
+                \item The original model can be regarded as a special case for $d_C=0$.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Platform's Strategy When Ads Disutility Matters}
+    \framesubtitle{}
+    \begin{description}
+        \item[\Pp{5}:] Even if consumers derive disutility from seeing ads,
+            platforms never adopt a \nad\ strategy in a monopoly content supplier makert.
+            However, in a competitive market, \nad\ is possible to adopted.
+            \begin{itemize}
+                \item Recall that a platform chooses \nad\ strategy only when
+                    the content price is sufficiently low.
+                \item However, \nad\ strategy leads platforms to buying the maximum amount
+                    of content, which encourage the monopoly suppliers to raise the price.
+                \item Consequently, platforms cater to \adv s and thus adopt \fc\ or
+                    \dual\ strategy rather than \nad.
+                \item In the competitive market, the content price is possibly low,
+                    at meanwhile the disutility from ads restricts the benefits of ads.
+            \end{itemize}
+    \end{description}
+\end{frame}
+
+\begin{frame}[label=current]
+    \frametitle{Practical Examples}
+    \framesubtitle{}
+    \begin{itemize}
+        \item Media platforms such as Netflix and Spotify, who procure
+            content from competing content suppliers, usually offer the content to consumers
+            without ads.
+        \item In contrast, TV stations broadcasting the Olympics of FIFA World Cup,
+            which providecd by suppliers with some marketing power,
+            typically host ads and also charge viewers.
+    \end{itemize}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}[label=current]
+    \frametitle{Managerial Significance}
+    \framesubtitle{}
+    \begin{itemize}
+        \item It is difficult for a manager to conjecture
+            how the different sides of a media market might interact
+            in a given situation, however, this paper provides useful
+        \item Further research may put the quality of content, platform in-house
+            content supplier, and any possible extension into consideration.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+\end{frame}
+
+%\end{CJK*}
+\end{document}
+
