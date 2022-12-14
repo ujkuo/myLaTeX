@@ -43,6 +43,7 @@
 % Define my color
 \definecolor{myred}{RGB}{192,46,46}
 \definecolor{myblue}{RGB}{7,75,164}
+%\definecolor{myblue}{RGB}{255,148,238} % test 
 \definecolor{mygreen}{rgb}{0.11,0.7,0.02}
 \definecolor{myyellow}{rgb}{0.7,0.625,0.1}
 
@@ -123,7 +124,7 @@
     \vskip-1ex%
     \color{myblue}\rule{\textwidth}{1pt}%
     \setlength{\parskip}{\prevparskip}%
-    \vskip-1ex plus 1fil
+    \vskip-1ex plus 1fil%
 }
 
 \setbeamertemplate{blocks}[lines]
@@ -179,8 +180,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Modify font
 
-\setCJKmainfont{思源宋體 TW}
-\setmainfont{Philosopher}
+\setCJKmainfont{思源宋體}
+\setmainfont{PT Serif}
 \setbeamerfont{title}{size=\huge, series=\bfseries}
 \newfontfamily\chancery{Apple Chancery}
 \DeclareTextFontCommand{\textch}{\chancery}
@@ -198,7 +199,7 @@
 \title{
     Who's Who in the Network.\\ Wanted: Key Player
 }  
-\author{郭宇杰\inst{1}, Yu-Chieh Kuo\inst{2}} 
+\author{郭宇杰\inst{$\dagger$}, Yu-Chieh Kuo\inst{2}} 
 \date{\today} 
 
 \institute[NTU]
@@ -316,6 +317,14 @@
 \subsection{Second line of dots} % new line of headline dots
 
 \section{Section no. 2} 
+
+\begin{frame}[label=current]
+  \frametitle{Symbol test}
+  \framesubtitle{}
+  \begin{itemize}
+    \item Let $\Game, \varGamma$
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[allowframebreaks]
     \bibliography{ref}
