@@ -29,6 +29,10 @@
 \usepackage[mathscr]{eucal}
 \usepackage{tcolorbox}
 
+\usepackage[T1]{fontenc}
+%\usepackage{newpxtext,newpxmath}
+\usepackage{pxfonts}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % beamer theme setting
 \usetheme{Szeged}
@@ -181,7 +185,7 @@
 % Modify font
 
 \setCJKmainfont{思源宋體}
-\setmainfont{PT Serif}
+%\setmainfont{PT Serif}
 \setbeamerfont{title}{size=\huge, series=\bfseries}
 \newfontfamily\chancery{Apple Chancery}
 \DeclareTextFontCommand{\textch}{\chancery}
@@ -202,7 +206,7 @@
 \author{郭宇杰\inst{$\dagger$}, Yu-Chieh Kuo\inst{2}} 
 \date{\today} 
 
-\institute[NTU]
+\institute%[NTU] % Not sure the function of options setting
 {
     \inst{1}
     Department of Information Management,
@@ -213,7 +217,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Set frame numbering and hide subsecs in toc
+% Set frame numbering and hide subsections in toc before entering a new section
 
 \AtBeginSection[]
 {
@@ -232,7 +236,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%includeonlyframes{current}
+%includeonlyframes{current} % Only compile frames with the current label to save time
 \begin{document}
 
 \begin{frame}
@@ -262,6 +266,7 @@
     \end{itemize}
 \end{frame}
 
+% Enter the outline page after elaborating on the motivation
 \begin{frame}
     \frametitle{Outline}
     \tableofcontents
@@ -322,7 +327,10 @@
   \frametitle{Symbol test}
   \framesubtitle{}
   \begin{itemize}
-    \item Let $\Game, \varGamma$
+    \item Let $\Game, \varGamma$, we have 
+      \[
+        1 +\alpha + q + g(x) = 0.
+      \]
   \end{itemize}
 \end{frame}
 
